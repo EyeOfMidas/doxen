@@ -5,15 +5,13 @@
 	<script type="text/javascript"></script>
 </head>
 <body>
-	<div id="login">
-	
-	<input type="text" id="username" />
-	<input type="text" id="password" />
-	<input type="submit" id="login" />
-		
+	<div id="loginContainer">
+		<?=$loginView?>
 	</div>
+	<script type="text/javascript" src="/js/doxenInit.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {
+		DOXEN.init();
 	});
 	</script>
 </body>

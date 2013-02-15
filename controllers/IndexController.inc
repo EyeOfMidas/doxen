@@ -2,7 +2,11 @@
 class IndexController implements IController {
 	public function execute() {
 		$view = new View();
-		$viewData = array();
-		return $view->render("indexView.inc", $viewData);
+		$loginViewData = array();
+		$indexViewData = array(
+			"domain" => DOMAIN
+			, "loginView" => $view->render("loginView.inc", $loginViewData)
+		);
+		return $view->render("indexView.inc", $indexViewData);
 	}
 }
