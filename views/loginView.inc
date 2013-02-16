@@ -1,5 +1,9 @@
-<input type="username" id="username" />
-<input type="password" id="password" />
+<?php 
+if(isset($message)) {?>
+<span class="alert"><?=$message?></span>
+<?php } ?>
+<input type="username" id="username" value="<?=isset($username) ? $username : ""?>" />
+<input type="password" id="password" value="" />
 <input type="submit" id="login" />		
 <script type="text/javascript">
 	$("#login").click(function() {

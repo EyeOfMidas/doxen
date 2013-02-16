@@ -7,6 +7,8 @@ A very lightweight forum implementation.
 
 ---
 
+<img src="http://i.imgur.com/RMM7Nni.jpg" title="Hosted by imgur.com" alt="" width="200" align="right" />
+
 ### Quickstart
 
 To set up your own instance of doxen, just copy the **setup/apache2_doxen** vhost definition to your apache2 configuration.

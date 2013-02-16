@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 15, 2013 at 10:47 AM
+-- Generation Time: Feb 15, 2013 at 05:13 PM
 -- Server version: 5.1.63
 -- PHP Version: 5.3.3-7+squeeze14
 
@@ -12,6 +12,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `doxen`
 --
+CREATE DATABASE `doxen` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `doxen`;
 
 -- --------------------------------------------------------
 
@@ -65,9 +67,9 @@ CREATE TABLE IF NOT EXISTS `topics` (
 
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ldap_name` varchar(256) NOT NULL,
+  `username` varchar(256) NOT NULL,
   `display_name` varchar(256) NOT NULL,
   `passwordhash` varchar(256) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
