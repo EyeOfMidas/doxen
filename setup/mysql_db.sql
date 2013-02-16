@@ -71,5 +71,5 @@ CREATE TABLE IF NOT EXISTS `users` (
   `display_name` varchar(256) NOT NULL,
   `passwordhash` varchar(256) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

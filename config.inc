@@ -8,6 +8,9 @@ define("MYSQLI_PASS", "doxenpassword");
 define("MYSQLI_DB", "doxen");
 
 
+define("MEMCACHED_SERVER", "localhost");
+define("MEMCACHED_PORT", "11211");
+
 /* --------- Do not edit below this line --------- */
 define("ROOT", dirname(__FILE__));
 define("LIBROOT", ROOT . "/libs/");
@@ -25,3 +28,5 @@ function doxen_autoload($class) {
 	}
 }
 spl_autoload_register("doxen_autoload");
+
+session_start();
