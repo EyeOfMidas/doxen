@@ -2,8 +2,19 @@
 class CreateTopicController implements IController {
 	
 	public function execute() {
-		//TODO: only show this if user is logged in
+		$session = new Session();
+		$logger = new Logger();
+		$userId = $session->getValue("logged_in");
 		$view = new View();
-		return $view->render("createTopicView.inc", array());
+		if($userId){
+			$user = new User();
+			$user->populate();
+			return $view->render("createTopicView.inc", array());
+		} else {
+			//return "not logged in" view;
+			$header = new Header();
+			$header->setNotLoggedIn();
+			return $view->render("logInPromptView.inc", array());
+		}
 	}
 }
