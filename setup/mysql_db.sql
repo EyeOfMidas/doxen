@@ -10,6 +10,13 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 --
+-- User: `doxen`
+--
+CREATE USER `doxen`@`localhost` IDENTIFIED BY 'doxenpassword';
+
+-- --------------------------------------------------------
+
+--
 -- Database: `doxen`
 --
 CREATE DATABASE `doxen` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -72,4 +79,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `passwordhash` varchar(256) NOT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- User permissions: `doxen`
+--
+GRANT INSERT ON `doxen`.* TO `doxen`@`localhost`;
+GRANT SELECT ON `doxen`.* TO `doxen`@`localhost`;
+GRANT UPDATE ON `doxen`.* TO `doxen`@`localhost`;
+FLUSH PRIVILEGES;
+
+-- --------------------------------------------------------
 
