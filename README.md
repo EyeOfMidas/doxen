@@ -15,7 +15,8 @@ This was only tested on a debian linux server, so that's the baseline. You will 
 
 ### Installation
 
-To set up your own instance of doxen, just copy the **setup/apache2_doxen** vhost definition to your apache2 configuration. For me this is
+To set up your own instance of doxen, just copy the **setup/apache2_doxen** vhost definition to your apache2 configuration.
+
 ```sudo cp setup/apache2_doxen /etc/apache2/sites-available/```
 ```sudo ln -s /etc/apache2/sites-available/apache2_doxen /etc/apache2/sites-enabled/001-doxen```
 ```sudo /etc/init.d/apache2 restart```
