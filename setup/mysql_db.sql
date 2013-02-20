@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `parent_post_id` int(11) NOT NULL,
   `url_name` varchar(256) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`comment_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `link` text CHARACTER SET utf8 NOT NULL,
   `parent_topic_id` int(11) NOT NULL,
   PRIMARY KEY (`post_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `topics` (
   `display_name` varchar(64) CHARACTER SET utf8 NOT NULL,
   `url_name` varchar(64) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`topic_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -78,7 +78,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `display_name` varchar(256) NOT NULL,
   `passwordhash` varchar(256) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `topic_moderators`
+--
+
+CREATE TABLE IF NOT EXISTS `topic_moderators` (
+	`topic_id` int(11) NOT NULL,
+    `user_id` int(11) NOT NULL,
+    `rank` varchar(64) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

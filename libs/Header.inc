@@ -7,4 +7,8 @@ class Header {
     public function setNotLoggedIn() {
     	header('HTTP/1.0 401 Unauthorized');
     }
+    
+    public function redirect($location) {
+    	header('Location: ' . $location);
+    }
 }

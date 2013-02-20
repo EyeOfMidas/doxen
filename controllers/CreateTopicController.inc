@@ -11,9 +11,6 @@ class CreateTopicController implements IController {
 			$user->populate();
 			return $view->render("createTopicView.inc", array());
 		} else {
-			//return "not logged in" view;
-			$header = new Header();
-			$header->setNotLoggedIn();
 			return $view->render("logInPromptView.inc", array());
 		}
 	}

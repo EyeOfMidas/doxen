@@ -13,10 +13,10 @@ class Database {
 		if($mysqliResult === true) {
 			return true;
 		}
-		if($mysqliResult->num_rows == 0) {
-			throw new DatabaseResultException("No results");
-		}
 		$result = array();
+		if($mysqliResult->num_rows == 0) {
+			return $result;
+		}
 		while($row = $mysqliResult->fetch_assoc()) {
 			$result[] = $row;
 		}
@@ -26,6 +26,7 @@ class Database {
 
 	public function write($sql) {
 		$this->mysqli->query($sql);
+		return $this->mysqli->insert_id;
 	}
 
 

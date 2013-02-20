@@ -7,16 +7,17 @@ class DatabaseAuthenticator {
 		try {
 			$database = new Database();
 			$sql = sprintf("SELECT user_id FROM users WHERE username = '%s' AND passwordhash = '%s'"
-			, $username
-			, sha1($password)
-			 );
+					, $username
+					, sha1($password)
+			);
 			$response = $database->query($sql);
-			$userId = $response[0]['user_id'];
-			$session->setValue("logged_in", $userId);
-			return $userId;
+			if($response != array()) {
+				$userId = $response[0]['user_id'];
+				$session->setValue("logged_in", $userId);
+				return $userId;
+			}
 		} catch(DatabaseConnectionException $e) {
 			$logger->error("Unable to communicate with database");
-		} catch(DatabaseResultException $e) {
 		}
 		return false;
 	}
