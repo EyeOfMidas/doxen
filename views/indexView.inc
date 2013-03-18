@@ -9,7 +9,7 @@
 	<div id="defaultTopics">
 	<ul>
 	<?php foreach($defaultTopics as $topic) { ?>
-		<li><a href="/?t=<?=$topic['topic_id']?>"><?=$topic['display_name']?></a></li>
+		<li><a href="/?a=topic&id=<?=$topic['topic_id']?>"><?=$topic['display_name']?></a></li>
 	<?php } ?>
 	</ul>
 	</div>

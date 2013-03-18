@@ -8,12 +8,15 @@ class ControllerFactory {
 				return new SubmitNewTopicController();
 			case "createtopic":
 				return new CreateTopicController();
-			case "getpost":
-				return new GetPostController();
 			case "login":
 				return new LoginController();
 			case "logout":
 				return new LogoutController();
+			case "topic":
+				return new TopicController();
+			case "post":
+				return new PostController();
+			case "index":
 			default:
 				return new IndexController();
 		}
