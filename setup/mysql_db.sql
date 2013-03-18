@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `parent_post_id` int(11) NOT NULL,
   `url_name` varchar(256) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`comment_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `content` text CHARACTER SET utf8 NOT NULL,
   `parent_topic_id` int(11) NOT NULL,
   PRIMARY KEY (`post_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `topics` (
   `display_name` varchar(64) CHARACTER SET utf8 NOT NULL,
   `url_name` varchar(64) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`topic_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
