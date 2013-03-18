@@ -10,6 +10,8 @@
 	</style>
 </head>
 <body>
+	<div id="header">
+	<a href="/">Doxen</a>
 	<div id="defaultTopics">
 	<ul>
 	<?php foreach($defaultTopics as $topic) { ?>
@@ -18,8 +20,9 @@
 	</ul>
 	</div>
 	<div id="loginContainer"><?=$loginView?></div>
+	</div>
 	<!--<div id="createTopicContainer"><a href="/?a=createtopic">Create a new topic</a></div>-->
-	<div id="viewPosts"><?=$postsView?></div>
+	<div id="posts"><?=$postsView?></div>
 	<script type="text/javascript" src="/js/doxenInit.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {

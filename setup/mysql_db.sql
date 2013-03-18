@@ -22,8 +22,6 @@ CREATE USER `doxen`@`localhost` IDENTIFIED BY 'doxenpassword';
 CREATE DATABASE `doxen` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `doxen`;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `comments`
 --
@@ -35,7 +33,18 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `parent_post_id` int(11) NOT NULL,
   `url_name` varchar(256) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`comment_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `default_topics`
+--
+
+CREATE TABLE IF NOT EXISTS `default_topics` (
+  `topic_id` int(11) NOT NULL,
+  `sort_order` int(3) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -45,13 +54,14 @@ CREATE TABLE IF NOT EXISTS `comments` (
 
 CREATE TABLE IF NOT EXISTS `posts` (
   `post_id` int(11) NOT NULL AUTO_INCREMENT,
+  `poster_user_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` varchar(256) CHARACTER SET utf8 NOT NULL,
   `url_name` varchar(256) CHARACTER SET utf8 NOT NULL,
   `content` text CHARACTER SET utf8 NOT NULL,
-  `link` text CHARACTER SET utf8 NOT NULL,
   `parent_topic_id` int(11) NOT NULL,
   PRIMARY KEY (`post_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -64,18 +74,7 @@ CREATE TABLE IF NOT EXISTS `topics` (
   `display_name` varchar(64) CHARACTER SET utf8 NOT NULL,
   `url_name` varchar(64) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`topic_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `default_topics`
---
-
-CREATE TABLE IF NOT EXISTS `default_topics` (
-  `topic_id` int(11) NOT NULL AUTO_INCREMENT,
-  `sort_order` int(4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -87,20 +86,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(256) NOT NULL,
   `display_name` varchar(256) NOT NULL,
-  `passwordhash` varchar(256) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `topic_moderators`
+-- Table structure for table `users_auth`
 --
 
-CREATE TABLE IF NOT EXISTS `topic_moderators` (
-	`topic_id` int(11) NOT NULL,
-    `user_id` int(11) NOT NULL,
-    `rank` varchar(64) NOT NULL
+CREATE TABLE IF NOT EXISTS `users_auth` (
+  `user_id` int(11) NOT NULL,
+  `passwordhash` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

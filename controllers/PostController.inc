@@ -3,23 +3,22 @@ class PostController implements IController {
 	public function execute() {
 		$view = new View();
 
-		$sql = "SELECT * FROM topics WHERE topic_id IN (SELECT topic_id FROM default_topics ORDER BY sort_order ASC)";
+		$form = new Form();
+		$dirtyPostId = $form->get("id");
+
+		$sql = sprintf("SELECT * FROM posts JOIN users ON user_id = poster_user_id WHERE post_id = '%s'", $dirtyPostId);
 		$database = new Database();
-		$defaultTopics = $database->query($sql);
+		$currentPost = $database->query($sql);
 
-		$sql = "SELECT * FROM posts WHERE parent_topic_id IN (SELECT topic_id FROM default_topics) ORDER BY timestamp DESC LIMIT 0, 20";
-		$posts = $database->query($sql);
-
-		$postViewData = array("posts" => $posts);
-		$postView = $view->render("postView.inc", $postViewData);
 		$loginViewDecider = new LoginViewDecider();
-		$loginViewData = array();
-		$indexViewData = array(
+
+		$postViewData = array(
 			"domain" => DOMAIN
 			, "loginView" => $loginViewDecider->decide()
-			, "postsView" => $postView
-			, "defaultTopics" => $defaultTopics
+			, "postData" => $currentPost[0]
+			, "commentView" => ""
 		);
-		return $view->render("postPageView.inc", $indexViewData);
+
+		return $view->render("postPageView.inc", $postViewData);
 	}
 }
