@@ -7,8 +7,11 @@ class IndexController implements IController {
 		$database = new Database();
 		$defaultTopics = $database->query($sql);
 
+		$sql = "SELECT * FROM posts WHERE parent_topic_id IN (SELECT topic_id FROM default_topics) ORDER BY timestamp DESC LIMIT 0, 20";
+		$posts = $database->query($sql);
 
-		$postView = $view->render("postView.inc", array());
+		$postViewData = array("posts" => $posts);
+		$postView = $view->render("postView.inc", $postViewData);
 		$loginViewDecider = new LoginViewDecider();
 		$loginViewData = array();
 		$indexViewData = array(
