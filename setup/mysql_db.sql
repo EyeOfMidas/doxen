@@ -69,6 +69,17 @@ CREATE TABLE IF NOT EXISTS `topics` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `default_topics`
+--
+
+CREATE TABLE IF NOT EXISTS `default_topics` (
+  `topic_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sort_order` int(4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 

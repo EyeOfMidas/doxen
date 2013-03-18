@@ -6,6 +6,13 @@
 </head>
 <body>
 	<div id="loginContainer"><?=$loginView?></div>
+	<div id="defaultTopics">
+	<ul>
+	<?php foreach($defaultTopics as $topic) { ?>
+		<li><a href="/topic/<?=$topic['url_name']?>/"><?=$topic['display_name']?></a></li>
+	<?php } ?>
+	</ul>
+	</div>
 	<div id="createTopicContainer"><a href="/?a=createtopic">Create a new topic</a></div>
 	<div id="viewPosts"><?=$postsView?></div>
 	<script type="text/javascript" src="/js/doxenInit.js"></script>
