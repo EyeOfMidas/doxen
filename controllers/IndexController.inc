@@ -7,7 +7,8 @@ class IndexController implements IController {
 		$database = new Database();
 		$defaultTopics = $database->query($sql);
 
-		
+		$form = new Form();
+		$dirtyPage = $form->getDefaulted("c", 0);
 		$postRenderer = new PostRenderer($database);
 
 		$loginViewDecider = new LoginViewDecider();
@@ -15,7 +16,7 @@ class IndexController implements IController {
 		$indexViewData = array(
 			"domain" => DOMAIN
 			, "loginView" => $loginViewDecider->decide()
-			, "postsView" => $postRenderer->getPostsInDefaultTopics()
+			, "postsView" => $postRenderer->getPostsInDefaultTopics($dirtyPage)
 			, "defaultTopics" => $defaultTopics
 		);
 		return $view->render("indexView.inc", $indexViewData);
