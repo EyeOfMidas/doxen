@@ -13,6 +13,7 @@
 	<h1><a href="?a=topic&id=<?=$topicData['topic_id']?>"><?=$topicData['display_name']?></a></h1>
 	<div id="loginContainer"><?=$loginView?></div>
 </div>
+<div id="createPostContainer"><a href="/?a=createpost">Create a new post</a></div>
 <div id="posts"><?=$postView?></div>
 </body>
 </html>
