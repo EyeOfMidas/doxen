@@ -28,11 +28,6 @@ $userId = $session->getValue('logged_in');
 	<div id="createTopicContainer"><a href="/?a=createtopic">Create a new topic</a></div>
 	<div id="posts"><?=$postsView?></div>
 	<script type="text/javascript" src="/js/doxenInit.js"></script>
-	<script type="text/javascript">
-	$(document).ready(function() {
-		DOXEN.init();
-	});
-	</script>
 </body>
 </html>
 

@@ -1,7 +1,1 @@
-<?=$username?> : <button id="logout">Log Out</button>
-<script type="text/javascript">
-	$("#logout").click(function() {
-		var logoutData = {};
-		 $.post("/?a=logout", logoutData, DOXEN.instance.loginHandler.loginResult, "json");
-	});
-</script>
+<form method="post" action="?a=logout"><?=$username?> : <input type="submit" id="logout" value="Log Out" /></form>

@@ -4,11 +4,7 @@ class LogoutController implements IController {
 		$view = new View();
 		$session = new Session();
 		$session->clear();
-		$loginViewData = array();
-		$logoutView = array(
-			"result" => "success"
-			, "html" => $view->render("loginView.inc", $loginViewData)
-		);
-		return json_encode($logoutView);
+		$header = new Header();
+		$header->redirect("/");
 	}
 }
