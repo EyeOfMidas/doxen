@@ -12,7 +12,7 @@ class LoginController implements IController {
 		
 		$view = new View();
 		$loginData = array();
-		$message = "Unable to authenticate user: perhaps the name or password is wrong?";
+		$message = "";
 		
 		if ($isLoggedIn) {
 			$user = new User();
@@ -21,8 +21,14 @@ class LoginController implements IController {
 			} catch (SessionExpiredException $e) {
 				$message = "Session has expired.";
 			}
+		} else {
+			$message = "Unable to authenticate user: perhaps the name or password is wrong?";
 		}
+		$location = "/";
 		$header = new Header();
-		$header->redirect("/?e=" . base64_encode($message));
+		if($message) {
+			$location .= "?e=" . base64_encode($message);
+		}
+		$header->redirect($location);
 	}
 }
