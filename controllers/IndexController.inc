@@ -5,9 +5,8 @@ class IndexController implements IController {
 	public function execute() {
 		$view = new View();
 		
-		$sql = "SELECT * FROM topics WHERE topic_id IN (SELECT topic_id FROM default_topics ORDER BY sort_order ASC)";
-		$database = new Database();
-		$defaultTopics = $database->query($sql);
+		$topicModel = new TopicModel();
+		$defaultTopics = $topicModel->getDefaultTopics();
 		
 		$form = new Form();
 		$dirtyPage = $form->getDefaulted("c", 0);

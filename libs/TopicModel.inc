@@ -12,4 +12,10 @@ class TopicModel {
 		
 		return $topicNames;
 	}
+	
+	public function getDefaultTopics() {
+		$sql = "SELECT * FROM topics WHERE topic_id IN (SELECT topic_id FROM default_topics ORDER BY sort_order ASC)";
+		$database = new Database();
+		return $database->query($sql);
+	}
 }

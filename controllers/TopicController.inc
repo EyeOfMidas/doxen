@@ -13,6 +13,9 @@ class TopicController implements IController {
 		$currentTopic = $currentTopic[0];
 		$postRenderer = new PostRenderer();
 		$loginViewDecider = new LoginViewDecider();
+		
+		$topicModel = new TopicModel();
+		$defaultTopics = $topicModel->getDefaultTopics();
 
 		$topicViewData = array(
 			"domain" => DOMAIN
@@ -20,6 +23,7 @@ class TopicController implements IController {
 			, "loginView" => $loginViewDecider->decide()
 			, "topicData" => $currentTopic
 			, "postView" => $postRenderer->getPostsInTopic($dirtyTopicId, $dirtyPage)
+			,'defaultTopics' => $defaultTopics
 		);
 
 		return $view->render("topicView.inc", $topicViewData);
