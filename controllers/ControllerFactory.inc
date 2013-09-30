@@ -1,11 +1,15 @@
 <?php
+
 class ControllerFactory {
+
 	public function create() {
 		$form = new Form();
 		$action = $form->get("a");
-		switch($action) {
+		switch ($action) {
 			case "submitnewtopic":
 				return new SubmitNewTopicController();
+			case "submitnewpost":
+				return new SubmitNewPostController();
 			case "createtopic":
 				return new CreateTopicController();
 			case "createpost":

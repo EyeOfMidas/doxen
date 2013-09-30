@@ -4,9 +4,9 @@
 	</div>	
 	<div id="sidebar">
 	<?php if($userId) { ?>
-	<div id="createTopicContainer">
-		<a href="/?a=createtopic">Create a new topic</a>
-	</div>
+	<a href="/?a=createtopic">Create a new topic</a>
+	<br />
+	<a href="/?a=createpost">Create a new post</a>
 	<?php } ?>
 	</div>
 </body>

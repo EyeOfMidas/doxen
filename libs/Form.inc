@@ -26,10 +26,12 @@ class Form {
 	}
 
 	public function getCleanDefaulted($index, $defaultValue) {
-		return htmlspecialchars($this->getDefaulted($index, $defaultValue), ENT_QUOTES, 'UTF-8');
+		$userInputScrubber = new UserInputScrubber();
+		return $userInputScrubber->scrubString($this->getDefaulted($index, $defaultValue));
 	}
 
 	public function getCleanEncodedDefaulted($index, $defaultValue) {
-		return htmlspecialchars($this->getEncodedDefaulted($index, $defaultValue), ENT_QUOTES, 'UTF-8');
+		$userInputScrubber = new UserInputScrubber();
+		return $userInputScrubber->scrubString($this->getEncodedDefaulted($index, $defaultValue));
 	}
 }
