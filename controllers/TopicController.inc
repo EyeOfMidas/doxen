@@ -11,14 +11,7 @@ class TopicController implements IController {
 		$database = new Database();
 		$currentTopic = $database->query($sql);
 		$currentTopic = $currentTopic[0];
-		$postRenderer = new PostRenderer($database);
-
-		$sql = sprintf("SELECT * FROM posts WHERE parent_topic_id = '%s' ORDER BY timestamp DESC LIMIT %s, 20"
-			, $dirtyTopicId
-			, $dirtyPage);
-		$posts = $database->query($sql);
-		$postViewData = array("posts" => $posts);
-
+		$postRenderer = new PostRenderer();
 		$loginViewDecider = new LoginViewDecider();
 
 		$topicViewData = array(
