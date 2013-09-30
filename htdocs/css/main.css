@@ -3,6 +3,18 @@ html, body {
 	padding: 20px 5px 5px 10px;
 }
 
+#header {
+	background: lightblue;
+}
+
+#content {
+	background: lightgray;
+}
+
+#sidebar {
+	background: lightgreen;
+}
+
 #defaultTopics ul {
 	display: inline;
 	margin: 0px;

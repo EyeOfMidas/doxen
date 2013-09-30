@@ -1,1 +1,3 @@
-<form method="post" action="?a=logout"><?=$username?> : <input type="submit" id="logout" value="Log Out" /></form>
+<form method="post" action="?a=logout">
+<?=$username?> : <input type="submit" id="logout" value="Log Out" />
+</form>
