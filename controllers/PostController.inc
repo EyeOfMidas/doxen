@@ -15,18 +15,23 @@ class PostController implements IController {
 		);
 		$database = new Database();
 		$currentPost = $database->query($sql);
+		$currentPost = $currentPost[0];
 
 		$loginViewDecider = new LoginViewDecider();
 		
 		$topicModel = new TopicModel();
 		$defaultTopics = $topicModel->getDefaultTopics();
+		
+		$postModel = new PostModel();
+		$postTopics = $postModel->getPostTopics($currentPost['post_id']);
 
 		$postViewData = array(
 			"domain" => DOMAIN
 			, "loginView" => $loginViewDecider->decide()
-			, "postData" => $currentPost[0]
+			, "postData" => $currentPost
 			, "commentView" => ""
 			, 'defaultTopics' => $defaultTopics
+			, 'postTopics' => $postTopics
 		);
 
 		return $view->render("postPageView.inc", $postViewData);

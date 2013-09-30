@@ -48,6 +48,20 @@ h1 {
 	min-width: 600px;
 }
 
+#parentTopics ul {
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+	
+}
+
+#parentTopics ul li {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	display: inline;
+}
+
 #sidebar {
 	background: lightgreen;
 	float: right;
