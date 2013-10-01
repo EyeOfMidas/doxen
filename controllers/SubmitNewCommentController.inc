@@ -9,72 +9,54 @@ class SubmitNewCommentController implements IController {
 		
 		if ($userId) {
 			$form = new Form();
-			$title = $form->post("postTitle");
-			// $postContent = $form->post("postContent");
-			// $tags = $form->post("tags");
+			$commentBody = $form->post('commentBody');
+			$commentTags = $form->post('commentTags');
+			$currentPostId = $form->post('currentPost');
+			$parentCommentId = $form->post('parentComment');
 			
-			// $userInputScrubber = new UserInputScrubber();
+			$userInputScrubber = new UserInputScrubber();
 			
-			// $title = $userInputScrubber->scrubString($title);
-			// if ($title == "") {
-			// //TODO: title required, return error
-			// return;
-			// }
+			$commentBody = $userInputScrubber->scrubString($commentBody);
+			if ($commentBody == "") {
+				// TODO: empty comment, what do
+				return;
+			}
 			
-			// $postContent = $userInputScrubber->scrubString($postContent);
-			// if ($postContent == "") {
-			// //TODO: post content required, return error
-			// return;
-			// }
+			$stringUrlLinker = new StringURLLinker();
+			$commentBody = $stringUrlLinker->replaceUrlsWithLinks($commentBody);
 			
-			// $stringUrlLinker = new StringURLLinker();
-			// if ($stringUrlLinker->stringOnlyContainsUrl($postContent)) {
-			// }
-			// $postContent = $stringUrlLinker->replaceUrlsWithLinks($postContent);
+			$commentTags = $userInputScrubber->scrubString($commentTags);
 			
-			// $tags = $userInputScrubber->scrubString($tags);
+			$tagDecoder = new TagDecoder();
+			$tagsFound = $tagDecoder->getTagIds($commentTags);
 			
-			// $tagsFound = array();
-			// $possibleTags = explode(",", $tags);
-			// $topicModel = new TopicModel();
-			// $allTopics = $topicModel->getAllTopicNames();
-			// foreach ($possibleTags as $oneTag) {
-			// $cleanTag = strtolower(trim($oneTag));
-			// if($key = array_search($cleanTag, $allTopics)) {
-			// $tagsFound[] = $key;
-			// }
-			// }
-			// if (count($tagsFound) <= 0) {
-			// //TODO: no tags defined, no where to post this
-			// return;
-			// }
+			if (count($tagsFound) <= 0) {
+				// TODO: no tags defined, no where to post this
+				return;
+			}
 			
-			// $webWrapper = new WebWrapper();
-			// $sql = sprintf("INSERT INTO posts (poster_user_id, timestamp, name, url_name, content) VALUES (%s, NOW(), '%s', '%s', '%s')",
-			// $userId,
-			// $title,
-			// $webWrapper->convertToUrl($title),
-			// $postContent
-			// );
+			$parentCommentId = $userInputScrubber->scrubString($parentCommentId);
 			
-			// $database = new Database();
-			// $postId = $database->write($sql);
+			$sql = sprintf("INSERT INTO comments (content, timestamp, poster_user_id, parent_post_id) VALUES ('%s', NOW(), '%s', '%s')", $commentBody, $userId, $parentCommentId);
 			
-			// if($postId == 0) {
-			// //TODO:something went wrong with saving the post, do something here
-			// return;
-			// }
-			// $associationValues = array();
-			// $sql = "INSERT INTO post_topic_associations (post_id, topic_id) VALUES ";
-			// foreach($tagsFound as $topicId) {
-			// $associationValues[] = "(".$postId.",".$topicId.")";
-			// }
-			// $sql .= implode(',', $associationValues);
+			$database = new Database();
+			$commentId = $database->write($sql);
 			
-			// $database->write($sql);
+			if ($commentId == 0) {
+				// TODO:something went wrong with saving the post, do something here
+				return;
+			}
+			$associationValues = array();
+			$sql = "INSERT INTO comment_topic_associations (comment_id, topic_id) VALUES ";
+			foreach ($tagsFound as $topicId) {
+				$associationValues[] = "(" . $commentId . "," . $topicId . ")";
+			}
+			$sql .= implode(',', $associationValues);
+			
+			$database->write($sql);
 			
 			$header = new Header();
-			$header->redirect("/");
+			$header->redirect("/?a=post&id=".$currentPostId);
 		} else {
 			// TODO: not logged in
 		}

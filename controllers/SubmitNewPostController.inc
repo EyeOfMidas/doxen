@@ -33,17 +33,10 @@ class SubmitNewPostController implements IController {
 			$postContent = $stringUrlLinker->replaceUrlsWithLinks($postContent);
 			
 			$tags = $userInputScrubber->scrubString($tags);
-					
-			$tagsFound = array();
-			$possibleTags = explode(",", $tags);
-			$topicModel = new TopicModel();
-			$allTopics = $topicModel->getAllTopicNames();
-			foreach ($possibleTags as $oneTag) {
-				$cleanTag = strtolower(trim($oneTag));
-				if($key = array_search($cleanTag, $allTopics)) {
-					$tagsFound[] = $key;
-				}
-			}
+			
+			$tagDecoder = new TagDecoder();
+			$tagsFound = $tagDecoder->getTagIds($tags);
+			
 			if (count($tagsFound) <= 0) {
 				//TODO: no tags defined, no where to post this
 				return;
