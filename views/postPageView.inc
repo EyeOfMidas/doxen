@@ -18,7 +18,7 @@ $allTopicNames = array();
 </ul>
 	</div>
 	<div id="postContents"><?=$postData['content']?></div>
-<?php include "comment.inc";?>
+<?php include "addNewCommentView.inc";?>
 <div id="comments"><?=$commentView?></div>
 </div>
 </body>
