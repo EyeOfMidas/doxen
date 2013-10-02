@@ -10,12 +10,12 @@ class CreatePostController implements IController {
 		$form = new Form();
 		
 		$topicModel = new TopicModel();
-		$currentTopic = $topicModel->getCurrentTopic($form->getDefaulted('t', 0));		
+		$topicId = $form->getDefaulted('t', 0);
+		$currentTopic = $topicModel->getCurrentTopic($topicId);		
 		$defaultTopics = $topicModel->getDefaultTopics();
-		
 		$viewData = array(
 			"loginView" => $loginViewDecider->decide()
-			,"tag" => $currentTopic['display_name']
+			,"tag" => !empty($currentTopic) ? $currentTopic['display_name'] : ""
 			,'defaultTopics' => $defaultTopics
 		);
 		
