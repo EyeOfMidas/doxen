@@ -12,6 +12,7 @@ class SubmitNewCommentController implements IController {
 			$commentBody = $form->post('commentBody');
 			$commentTags = $form->post('commentTags');
 			$currentPostId = $form->post('currentPost');
+			$currentTopicId = $form->post('currentTopic');
 			$parentCommentId = $form->post('parentComment');
 			
 			$userInputScrubber = new UserInputScrubber();
@@ -57,7 +58,7 @@ class SubmitNewCommentController implements IController {
 			$database->write($sql);
 			
 			$header = new Header();
-			$header->redirect("/?a=post&id=".$currentPostId);
+			$header->redirect("/?a=post&id=".$currentPostId."&t=".$currentTopicId);
 		} else {
 			// TODO: not logged in
 		}
