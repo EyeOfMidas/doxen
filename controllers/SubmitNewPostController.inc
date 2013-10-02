@@ -36,7 +36,7 @@ class SubmitNewPostController implements IController {
 			
 			$tagDecoder = new TagDecoder();
 			$tagsFound = $tagDecoder->getTagIds($tags);
-			
+
 			if (count($tagsFound) <= 0) {
 				//TODO: no tags defined, no where to post this
 				return;
@@ -49,7 +49,7 @@ class SubmitNewPostController implements IController {
 				$webWrapper->convertToUrl($title),
 				$postContent
 			);
-	
+
 			$database = new Database();
 			$postId = $database->write($sql);
 			
@@ -65,9 +65,17 @@ class SubmitNewPostController implements IController {
 			$sql .= implode(',', $associationValues);
 			
 			$database->write($sql);
-			
+
 			 $header = new Header();
-			 $header->redirect("/");
+			 
+			 echo "here";
+			 if(count($tagsFound) == 1) {
+			 	
+			 	var_dump("/?a=post&id=".$postId."&t=".$tagsFound[0]);
+			 	$header->redirect("/?a=post&id=".$postId."&t=".$tagsFound[0]);
+			 } else {
+			 	$header->redirect("/");
+			 }
 		} else {
 			//TODO: not logged in
 		}
