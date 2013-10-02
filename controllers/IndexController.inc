@@ -10,7 +10,7 @@ class IndexController implements IController {
 		
 		$form = new Form();
 		$dirtyPage = $form->getDefaulted("c", 0);
-		$postRenderer = new PostRenderer($database);
+		$postRenderer = new PostRenderer();
 		
 		$loginViewDecider = new LoginViewDecider();
 		$loginViewData = array();
