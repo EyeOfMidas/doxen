@@ -151,10 +151,10 @@ CREATE TABLE IF NOT EXISTS `users_auth` (
 ---
 --- User permissions: `doxen`
 ---
--GRANT INSERT ON `doxen`.* TO `doxen`@`localhost`;
--GRANT SELECT ON `doxen`.* TO `doxen`@`localhost`;
--GRANT UPDATE ON `doxen`.* TO `doxen`@`localhost`;
--FLUSH PRIVILEGES;
+GRANT INSERT ON `doxen`.* TO `doxen`@`localhost`;
+GRANT SELECT ON `doxen`.* TO `doxen`@`localhost`;
+GRANT UPDATE ON `doxen`.* TO `doxen`@`localhost`;
+FLUSH PRIVILEGES;
 -
 --- --------------------------------------------------------
 
