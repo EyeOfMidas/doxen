@@ -1,21 +1,53 @@
 html, body {
 	margin: 0px;
 	padding: 0px;
+	font-family: verdana,arial,helvetica,sans-serif;
+	color: white;
+	background: white;
 }
 
 h1 {
 	margin: 0px;
 	padding: 0px;
+	color: #26537C;
 }
 
+a, a:link, a:active, a:visited {
+	text-decoration: none;
+	color: #0C5DA5;
+}
+
+a:hover {
+	color: #FF9500;
+}
+
+.postByline {
+	font-size: x-small;
+}
+.commentByline {
+	font-size: x-small;
+}
+
+.comment {
+	padding: 5px;
+}
+/* Begin header styles */
 #header {
-	background: lightblue;
-	height: 50px;
+	background: #679FD2;
+	height: 40px;
+	padding: 5px;
+	color: white;
 }
 
 #logo {
-	background: lightcyan;
 	float: left;
+}
+#logo a:link, #logo a:visited, #logo a:active {
+	color: white;
+}
+
+#logo a:hover {
+	color: #FF9500;
 }
 
 #loginContainer {
@@ -23,9 +55,17 @@ h1 {
 }
 
 #defaultTopics {
-	background: lightyellow;
 	float: left;
 	clear: both;
+	font-size: small;
+}
+
+#defaultTopics a:link, #defaultTopics a:visited, #defaultTopics a:active {
+	color: #FFC573;
+}
+
+#defaultTopics a:hover {
+	color: #0C5DA5;
 }
 
 #defaultTopics ul {
@@ -41,11 +81,26 @@ h1 {
 	list-style: none;
 	display: inline;
 }
+/* End header styles */
 
-#content {
-	background: lightgray;
-	float: left;
+/* Begin body styles */
+#pageBody {
 	min-width: 600px;
+	width: 100%;
+}
+#content {
+	float: left;
+	padding: 5px 5px 5px 20px;
+	color: black;
+}
+
+#content ul {
+	padding: 0px;
+}
+
+#content ul li {
+	list-style: none;
+	padding-top: 5px;
 }
 
 #parentTopics ul {
@@ -62,8 +117,28 @@ h1 {
 	display: inline;
 }
 
-#sidebar {
-	background: lightgreen;
-	float: right;
-	min-width: 250px;
+#byline {
+	font-size: x-small;
 }
+
+#postContents {
+	padding: 20px;
+	background-color: #679FD2;
+}
+
+#sidebar {
+	float: right;
+	text-align: center;
+	padding: 5px;
+	background-color: #043A6B;
+}
+
+#sidebar a:link, #sidebar a:visited, #sidebar a:active {
+	color: #FFC573;
+}
+
+#sidebar a:hover {
+	color: #FF9500;
+}
+
+/* End body styles */

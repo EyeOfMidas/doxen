@@ -12,7 +12,7 @@ class SubmitNewCommentController implements IController {
 			$commentBody = $form->post('commentBody');
 			$commentTags = $form->post('commentTags');
 			$currentPostId = $form->post('currentPost');
-			//$parentCommentId = $form->post('parentComment');
+			$parentCommentId = $form->post('parentComment');
 			
 			$userInputScrubber = new UserInputScrubber();
 			
@@ -35,9 +35,10 @@ class SubmitNewCommentController implements IController {
 				return;
 			}
 			
-			//$parentCommentId = $userInputScrubber->scrubString($parentCommentId);
+			$parentCommentId = $userInputScrubber->scrubString($parentCommentId);
 			
-			$sql = sprintf("INSERT INTO comments (content, timestamp, poster_user_id, parent_post_id) VALUES ('%s', NOW(), '%s', '%s')", $commentBody, $userId, $currentPostId);
+			$sql = sprintf("INSERT INTO comments (content, timestamp, poster_user_id, parent_post_id, parent_comment_id) 
+				VALUES ('%s', NOW(), '%s', '%s', '%s')", $commentBody, $userId, $currentPostId, $parentCommentId);
 			
 			$database = new Database();
 			$commentId = $database->write($sql);

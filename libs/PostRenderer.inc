@@ -12,10 +12,11 @@ class PostRenderer {
 
 	public function getPostsInDefaultTopics($page = 0) {
 		$view = new View();
-		$sql = sprintf("SELECT p.post_id, u.user_id, p.timestamp, p.name as post_name, p.url_name as post_url_name, p.content, u.username, u.display_name as user_display_name
+		$sql = sprintf("SELECT p.post_id, u.user_id, p.timestamp, p.name as post_name, p.url_name as post_url_name, p.content, u.username, u.display_name as user_display_name, t.topic_id, t.display_name as topic_display_name 
 			FROM posts p 
 			JOIN post_topic_associations a ON p.post_id = a.post_id 
 			JOIN users u ON p.poster_user_id = u.user_id 
+			JOIN topics t on t.topic_id = a.topic_id
 			WHERE a.topic_id IN (SELECT topic_id FROM default_topics) 
 			ORDER BY timestamp DESC LIMIT %s, %s", $page * PostRenderer::PAGE_SIZE, PostRenderer::PAGE_SIZE);
 		

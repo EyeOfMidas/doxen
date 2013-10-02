@@ -18,4 +18,12 @@ class TopicModel {
 		$database = new Database();
 		return $database->query($sql);
 	}
+	
+	public function getCurrentTopic($topicId) {
+		$topicData = array();
+		$sql = sprintf("SELECT * FROM topics WHERE topic_id = '%s", $topicId);
+		$database = new Database();
+		$topicData = $database->query($sql);
+		return $topicData;
+	}
 }
