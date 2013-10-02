@@ -24,6 +24,9 @@ class TopicModel {
 		$sql = sprintf("SELECT * FROM topics WHERE topic_id = '%s'", $topicId);
 		$database = new Database();
 		$topicData = $database->query($sql);
-		return $topicData[0];
+		if(isset($topicData[0])) {
+			return $topicData[0];
+		}
+		return array();
 	}
 }
