@@ -8,14 +8,15 @@ class CreatePostController implements IController {
 		$view = new View();
 		$loginViewDecider = new LoginViewDecider();
 		$form = new Form();
-		$sql = sprintf("SELECT * FROM topics WHERE topic_id = '%s'", $form->getDefaulted('t', 0));
-		$database = new Database();
-		$currentTopic = $database->query($sql);
-		$currentTopic = $currentTopic[0];
+		
+		$topicModel = new TopicModel();
+		$currentTopic = $topicModel->getCurrentTopic($form->getDefaulted('t', 0));		
+		$defaultTopics = $topicModel->getDefaultTopics();
 		
 		$viewData = array(
 			"loginView" => $loginViewDecider->decide()
 			,"tag" => $currentTopic['display_name']
+			,'defaultTopics' => $defaultTopics
 		);
 		
 		if($userId){
