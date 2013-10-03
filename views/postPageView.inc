@@ -33,6 +33,20 @@ if ($userId) {
 <div id="comments"><?=$commentView?></div>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function() {
+	var openCommentReplyFunction = function() {
+			var replyContainer = $(this).parent();
+			var parentCommentId = $(this).data('id');
+			console.log('calling server for comments on ' + parentCommentId);
+			$.get('?a=commentreplies&id=' + parentCommentId, function(result) {
+				replyContainer.html(result);
+				$('.replies a').click(openCommentReplyFunction);
+				});
+	};
+	$('.replies a').click(openCommentReplyFunction);
+});
+</script>
 </body>
 </html>
 

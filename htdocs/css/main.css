@@ -31,6 +31,14 @@ a:hover {
 .comment {
 	padding: 5px;
 }
+.comment p {
+	padding: 0px;
+	margin: 0px;
+}
+.comment .replies {
+	text-indent: 1em;
+}
+
 /* Begin header styles */
 #header {
 	background: #679FD2;

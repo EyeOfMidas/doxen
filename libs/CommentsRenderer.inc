@@ -4,21 +4,55 @@ class CommentsRenderer {
 
 	const PAGE_SIZE = 100;
 
-	public function getTopLevelComments($postId, $topicId, $page = 0) {
-		$sql = sprintf("SELECT * 
-			FROM comments c 
+	public function getComments($postId, $topicId, $parentCommentId, $page = 0) {
+		$sql = sprintf("SELECT *
+			FROM comments c
 			JOIN users u ON c.poster_user_id = u.user_id
 			JOIN comment_topic_associations a ON c.comment_id = a.comment_id
-			WHERE c.parent_post_id = '%s' 
+			WHERE c.parent_post_id = '%s'
 			AND a.topic_id = '%s'
-			ORDER BY timestamp DESC LIMIT %s, %s", $postId, $topicId, $page * CommentsRenderer::PAGE_SIZE, CommentsRenderer::PAGE_SIZE);
+			AND c.parent_comment_id = '%s'
+			ORDER BY timestamp DESC LIMIT %s, %s", $postId, $topicId, $parentCommentId, $page * CommentsRenderer::PAGE_SIZE, CommentsRenderer::PAGE_SIZE);
 		$database = new Database();
 		$comments = $database->query($sql);
+		
+		foreach($comments as $index => $commentData) {
+			$sql = sprintf("SELECT count(*) as replies FROM comments WHERE parent_comment_id = '%s'",$commentData['comment_id']);
+			$countData = $database->query($sql);
+			$comments[$index]['replies'] = $countData[0]['replies'];
+		}
 		
 		$view = new View();
 		$viewData = array(
 			'comments' => $comments
 		);
 		return $view->render('commentsView.inc', $viewData);
+	}
+	
+	public function getReplies($parentCommentId, $page = 0) {
+		$sql = sprintf("SELECT *
+			FROM comments c
+			JOIN users u ON c.poster_user_id = u.user_id
+			WHERE c.parent_comment_id = '%s'
+			ORDER BY timestamp DESC LIMIT %s, %s", $parentCommentId, $page * CommentsRenderer::PAGE_SIZE, CommentsRenderer::PAGE_SIZE);
+		
+		$database = new Database();
+		$comments = $database->query($sql);
+		
+		foreach($comments as $index => $commentData) {
+			$sql = sprintf("SELECT count(*) as replies FROM comments WHERE parent_comment_id = '%s'",$commentData['comment_id']);
+			$countData = $database->query($sql);
+			$comments[$index]['replies'] = $countData[0]['replies'];
+		}
+		
+		$view = new View();
+		$viewData = array(
+			'comments' => $comments
+		);
+		return $view->render('commentsView.inc', $viewData);
+	}
+	
+	public function getTopLevelComments($postId, $topicId, $page = 0) {
+		return $this->getComments($postId, $topicId, 0, $page);
 	}
 }
