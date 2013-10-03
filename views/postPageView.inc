@@ -35,16 +35,22 @@ if ($userId) {
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
+	var toggleCommentInputWindow = function() {
+		console.log('you clicked reply ' + $(this).data('id'));
+	};
 	var openCommentReplyFunction = function() {
 			var replyContainer = $(this).parent();
 			var parentCommentId = $(this).data('id');
-			console.log('calling server for comments on ' + parentCommentId);
 			$.get('?a=commentreplies&id=' + parentCommentId, function(result) {
 				replyContainer.html(result);
-				$('.replies a').click(openCommentReplyFunction);
+				$('.loadCommentReplies').unbind('click');
+				$('.loadCommentReplies').click(openCommentReplyFunction);
+				$('.toggleCommentReply').unbind('click');
+				$('.toggleCommentReply').click(toggleCommentInputWindow);
 				});
 	};
-	$('.replies a').click(openCommentReplyFunction);
+	$('.loadCommentReplies').click(openCommentReplyFunction);
+	$('.toggleCommentReply').click(toggleCommentInputWindow);
 });
 </script>
 </body>

@@ -3,6 +3,13 @@
 class CommentsRenderer {
 
 	const PAGE_SIZE = 100;
+	
+	private $database;
+	
+	public function __construct() {
+		$this->database = new Database();
+		
+	}
 
 	public function getComments($postId, $topicId, $parentCommentId, $page = 0) {
 		$sql = sprintf("SELECT *
@@ -13,12 +20,11 @@ class CommentsRenderer {
 			AND a.topic_id = '%s'
 			AND c.parent_comment_id = '%s'
 			ORDER BY timestamp DESC LIMIT %s, %s", $postId, $topicId, $parentCommentId, $page * CommentsRenderer::PAGE_SIZE, CommentsRenderer::PAGE_SIZE);
-		$database = new Database();
-		$comments = $database->query($sql);
+		$comments = $this->database->query($sql);
 		
 		foreach($comments as $index => $commentData) {
 			$sql = sprintf("SELECT count(*) as replies FROM comments WHERE parent_comment_id = '%s'",$commentData['comment_id']);
-			$countData = $database->query($sql);
+			$countData = $this->database->query($sql);
 			$comments[$index]['replies'] = $countData[0]['replies'];
 		}
 		
@@ -36,12 +42,11 @@ class CommentsRenderer {
 			WHERE c.parent_comment_id = '%s'
 			ORDER BY timestamp DESC LIMIT %s, %s", $parentCommentId, $page * CommentsRenderer::PAGE_SIZE, CommentsRenderer::PAGE_SIZE);
 		
-		$database = new Database();
-		$comments = $database->query($sql);
+		$comments = $this->database->query($sql);
 		
 		foreach($comments as $index => $commentData) {
 			$sql = sprintf("SELECT count(*) as replies FROM comments WHERE parent_comment_id = '%s'",$commentData['comment_id']);
-			$countData = $database->query($sql);
+			$countData = $this->database->query($sql);
 			$comments[$index]['replies'] = $countData[0]['replies'];
 		}
 		

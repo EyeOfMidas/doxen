@@ -35,9 +35,23 @@ a:hover {
 	padding: 0px;
 	margin: 0px;
 }
+.comment .commentActions a:link,
+.comment .commentActions a:visited,
+.comment .commentActions a:active {
+	font-size: small;
+	color: gray;
+	font-weight: bold;
+}
+
+.comment .commentActions a:hover {
+	text-decoration: underline;
+}
+
 .comment .replies {
 	text-indent: 1em;
 }
+
+
 
 /* Begin header styles */
 #header {
