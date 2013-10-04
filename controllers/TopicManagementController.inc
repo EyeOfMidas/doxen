@@ -9,8 +9,15 @@ class TopicManagementController implements IController {
 		
 		$loginViewDecider = new LoginViewDecider();
 		
+		$form = new Form();
+		$topicId = $form->getCleanDefaulted('id', 0);
+		
+		$topicModel = new TopicModel();
+		$topicData = $topicModel->getCurrentTopic($topicId);
+		
 		$viewData = array(
-			"loginView" => $loginViewDecider->decide()
+			"loginView" => $loginViewDecider->decide(),
+			"topicData" => $topicData
 		);
 		if ($userId) {
 			return $view->render('topicManagementView.inc', $viewData);
