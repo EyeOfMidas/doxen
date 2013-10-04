@@ -154,6 +154,7 @@ a:hover {
 	text-align: center;
 	padding: 5px;
 	background-color: #043A6B;
+	width: 300px;
 }
 
 #sidebar a:link, #sidebar a:visited, #sidebar a:active {

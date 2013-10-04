@@ -1,4 +1,4 @@
-<?php include "header.php"; ?>
+<?php include "header.inc"; ?>
 <div id="content">
 <form method="POST" action="/?a=submitnewtopic">
 	<label for="name">Topic name:</label><input type="text" name="name" id="name" />

@@ -1,5 +1,5 @@
 <?php
-include "header.php";
+include "header.inc";
 $humanReadableTime = new HumanReadableTime();
 $allTopicNames = array();
 ?>
@@ -32,6 +32,7 @@ if ($userId) {
 ?>
 <div id="comments"><?=$commentView?></div>
 	</div>
+	<?php include "topicSidebarView.inc"; ?>
 </div>
 <script type="text/javascript">
 $(document).ready(function() {

@@ -1,4 +1,4 @@
-<?php include "header.php"; ?>
+<?php include "header.inc"; ?>
 <div id="pageBody">
 	<div id="content">
 		<div id="posts"><?=$postsView?></div>

@@ -1,31 +1,47 @@
 <?php
+
 class TopicController implements IController {
+
+	private $view;
+
+	private $topicModel;
+
+	private $form;
+
+	private $postRenderer;
+
+	private $loginViewDecider;
+
+	private $permissionDecider;
+
+	public function __construct() {
+		$this->view = new View();
+		$this->topicModel = new TopicModel();
+		$this->form = new Form();
+		$this->postRenderer = new PostRenderer();
+		$this->loginViewDecider = new LoginViewDecider();
+		$this->permissionDecider = new PermissionDecider();
+	}
+
 	public function execute() {
-		$view = new View();
-
-		$form = new Form();
-		$dirtyTopicId = $form->get("id");
-		$dirtyPage = $form->getDefaulted("c", 0);
-
-		$sql = sprintf("SELECT * FROM topics WHERE topic_id = '%s'", $dirtyTopicId);
-		$database = new Database();
-		$currentTopic = $database->query($sql);
-		$currentTopic = $currentTopic[0];
-		$postRenderer = new PostRenderer();
-		$loginViewDecider = new LoginViewDecider();
+		$topicId = $this->form->getCleanDefaulted("id");
+		$page = $this->form->getCleanDefaulted("c", 0);
 		
-		$topicModel = new TopicModel();
-		$defaultTopics = $topicModel->getDefaultTopics();
-
+		$currentTopic = $this->topicModel->getCurrentTopic($topicId);
+		$defaultTopics = $this->topicModel->getDefaultTopics();
+		
+		$topicAccess = $this->permissionDecider->hasTopicAccess($topicId);
+		
 		$topicViewData = array(
-			"domain" => DOMAIN
-			, "title" => $currentTopic['display_name']
-			, "loginView" => $loginViewDecider->decide()
-			, "topicData" => $currentTopic
-			, "postView" => $postRenderer->getPostsInTopic($dirtyTopicId, $dirtyPage)
-			,'defaultTopics' => $defaultTopics
+			"domain" => DOMAIN,
+			"title" => $currentTopic['display_name'],
+			"loginView" => $this->loginViewDecider->decide(),
+			"topicData" => $currentTopic,
+			"postView" => $this->postRenderer->getPostsInTopic($topicId, $page),
+			'defaultTopics' => $defaultTopics,
+			'topicAccess' => $topicAccess
 		);
-
-		return $view->render("topicView.inc", $topicViewData);
+		
+		return $this->view->render("topicView.inc", $topicViewData);
 	}
 }

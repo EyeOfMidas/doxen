@@ -20,8 +20,6 @@ class CreatePostController implements IController {
 		);
 		
 		if($userId){
-			$user = new User();
-			$user->populate();
 			return $view->render("createPostView.inc", $viewData);
 		} else {
 			return $view->render("logInPromptView.inc",  $viewData);

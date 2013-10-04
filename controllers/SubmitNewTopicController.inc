@@ -20,11 +20,19 @@ class SubmitNewTopicController implements IController {
 						, $this->cleanName($newTopicName)
 				);
 				$topicId = $database->write($sql);
+				
+				$sql = sprintf("INSERT INTO user_topic_acl (user_id, topic_id, rank_id) VALUES ('%s', '%s', '%s')",
+					$userId,
+					$topicId,
+					2 
+				);
+				
+				$database->write($sql);
 			} else {
 				//topic already claimed
 			}
 			$header = new Header();
-			$header->redirect("/?a=topic&id=".$topicId);
+			$header->redirect("/?a=topicmanagement&id=".$topicId);
 		} else {
 			//not logged in
 		}
