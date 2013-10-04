@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `users_auth` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --- --------------------------------------------------------
--
+
 ---
 --- User permissions: `doxen`
 ---
@@ -155,7 +155,7 @@ GRANT INSERT ON `doxen`.* TO `doxen`@`localhost`;
 GRANT SELECT ON `doxen`.* TO `doxen`@`localhost`;
 GRANT UPDATE ON `doxen`.* TO `doxen`@`localhost`;
 FLUSH PRIVILEGES;
--
+
 --- --------------------------------------------------------
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
