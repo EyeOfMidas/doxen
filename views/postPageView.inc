@@ -36,12 +36,14 @@ if ($userId) {
 <script type="text/javascript">
 $(document).ready(function() {
 	var toggleCommentInputWindow = function() {
-		console.log('you clicked reply ' + $(this).data('id'));
+		$('#comment'+$(this).data('id')+'.commentReply').toggle();
 	};
 	var openCommentReplyFunction = function() {
 			var replyContainer = $(this).parent();
 			var parentCommentId = $(this).data('id');
+			console.log('doxen.test/?a=commentreplies&id=' + parentCommentId);
 			$.get('?a=commentreplies&id=' + parentCommentId, function(result) {
+				console.log('got response', result);
 				replyContainer.html(result);
 				$('.loadCommentReplies').unbind('click');
 				$('.loadCommentReplies').click(openCommentReplyFunction);

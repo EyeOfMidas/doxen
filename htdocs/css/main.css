@@ -30,6 +30,7 @@ a:hover {
 
 .comment {
 	padding: 5px;
+	border-left: 1px solid gray;
 }
 .comment p {
 	padding: 0px;

@@ -36,11 +36,14 @@ class SubmitNewCommentController implements IController {
 				return;
 			}
 			
+			if (empty($currentTopicId)) {
+				$currentTopicId = $tagsFound[0];
+			}
+			
 			$parentCommentId = $userInputScrubber->scrubString($parentCommentId);
 			
 			$sql = sprintf("INSERT INTO comments (content, timestamp, poster_user_id, parent_post_id, parent_comment_id) 
 				VALUES ('%s', NOW(), '%s', '%s', '%s')", $commentBody, $userId, $currentPostId, $parentCommentId);
-			
 			$database = new Database();
 			$commentId = $database->write($sql);
 			
@@ -54,11 +57,10 @@ class SubmitNewCommentController implements IController {
 				$associationValues[] = "(" . $commentId . "," . $topicId . ")";
 			}
 			$sql .= implode(',', $associationValues);
-			
 			$database->write($sql);
 			
 			$header = new Header();
-			$header->redirect("/?a=post&id=".$currentPostId."&t=".$currentTopicId);
+			$header->redirect("/?a=post&id=" . $currentPostId . "&t=" . $currentTopicId);
 		} else {
 			// TODO: not logged in
 		}
