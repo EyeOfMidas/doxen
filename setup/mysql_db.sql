@@ -19,6 +19,7 @@ SET time_zone = "+00:00";
 --
 -- User: `doxen`
 --
+
 CREATE USER `doxen`@`localhost` IDENTIFIED BY 'doxenpassword';
 
 -- --------------------------------------------------------
@@ -26,8 +27,21 @@ CREATE USER `doxen`@`localhost` IDENTIFIED BY 'doxenpassword';
 --
 -- Database: `doxen`
 --
+
+DROP DATABASE IF EXISTS `doxen`;
 CREATE DATABASE `doxen` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `doxen`;
+
+--- --------------------------------------------------------
+
+---
+--- User permissions: `doxen`
+---
+
+GRANT INSERT ON `doxen`.* TO `doxen`@`localhost`;
+GRANT SELECT ON `doxen`.* TO `doxen`@`localhost`;
+GRANT UPDATE ON `doxen`.* TO `doxen`@`localhost`;
+FLUSH PRIVILEGES;
 
 -- --------------------------------------------------------
 
@@ -35,7 +49,6 @@ USE `doxen`;
 -- Table structure for table `comment_topic_associations`
 --
 
-DROP TABLE IF EXISTS `comment_topic_associations`;
 CREATE TABLE IF NOT EXISTS `comment_topic_associations` (
   `comment_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL,
@@ -48,7 +61,6 @@ CREATE TABLE IF NOT EXISTS `comment_topic_associations` (
 -- Table structure for table `comments`
 --
 
-DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
   `comment_id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
@@ -66,7 +78,6 @@ CREATE TABLE IF NOT EXISTS `comments` (
 -- Table structure for table `default_topics`
 --
 
-DROP TABLE IF EXISTS `default_topics`;
 CREATE TABLE IF NOT EXISTS `default_topics` (
   `topic_id` int(11) NOT NULL,
   `sort_order` int(3) NOT NULL
@@ -78,7 +89,6 @@ CREATE TABLE IF NOT EXISTS `default_topics` (
 -- Table structure for table `post_topic_associations`
 --
 
-DROP TABLE IF EXISTS `post_topic_associations`;
 CREATE TABLE IF NOT EXISTS `post_topic_associations` (
   `post_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL,
@@ -91,7 +101,6 @@ CREATE TABLE IF NOT EXISTS `post_topic_associations` (
 -- Table structure for table `posts`
 --
 
-DROP TABLE IF EXISTS `posts`;
 CREATE TABLE IF NOT EXISTS `posts` (
   `post_id` int(11) NOT NULL AUTO_INCREMENT,
   `poster_user_id` int(11) NOT NULL,
@@ -108,7 +117,6 @@ CREATE TABLE IF NOT EXISTS `posts` (
 -- Table structure for table `topics`
 --
 
-DROP TABLE IF EXISTS `topics`;
 CREATE TABLE IF NOT EXISTS `topics` (
   `topic_id` int(11) NOT NULL AUTO_INCREMENT,
   `display_name` varchar(64) NOT NULL,
@@ -122,7 +130,6 @@ CREATE TABLE IF NOT EXISTS `topics` (
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
@@ -139,22 +146,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Table structure for table `users_auth`
 --
 
-DROP TABLE IF EXISTS `users_auth`;
 CREATE TABLE IF NOT EXISTS `users_auth` (
   `user_id` int(11) NOT NULL,
   `passwordhash` varchar(255) NOT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---- --------------------------------------------------------
-
----
---- User permissions: `doxen`
----
-GRANT INSERT ON `doxen`.* TO `doxen`@`localhost`;
-GRANT SELECT ON `doxen`.* TO `doxen`@`localhost`;
-GRANT UPDATE ON `doxen`.* TO `doxen`@`localhost`;
-FLUSH PRIVILEGES;
 
 --- --------------------------------------------------------
 
