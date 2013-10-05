@@ -114,6 +114,18 @@ CREATE TABLE IF NOT EXISTS `posts` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ranks`
+--
+
+CREATE TABLE IF NOT EXISTS `ranks` (
+  `rank_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`rank_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `topics`
 --
 
@@ -121,6 +133,8 @@ CREATE TABLE IF NOT EXISTS `topics` (
   `topic_id` int(11) NOT NULL AUTO_INCREMENT,
   `display_name` varchar(64) NOT NULL,
   `url_name` varchar(64) NOT NULL,
+  `description` text NOT NULL,
+  `sidebar` text NOT NULL,
   PRIMARY KEY (`topic_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
@@ -153,6 +167,17 @@ CREATE TABLE IF NOT EXISTS `users_auth` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --- --------------------------------------------------------
+
+--
+-- Table structure for table `user_topic_acl`
+--
+
+CREATE TABLE IF NOT EXISTS `user_topic_acl` (
+  `user_id` int(11) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  `rank_id` int(11) NOT NULL,
+  UNIQUE KEY `user_id` (`user_id`,`topic_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

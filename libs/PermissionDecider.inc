@@ -22,4 +22,8 @@ class PermissionDecider {
 		}
 		return $topicAccess;
 	}
+	
+	public function getRankForTopic($topicId) {
+		
+	}
 }

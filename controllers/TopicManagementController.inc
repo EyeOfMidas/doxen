@@ -15,9 +15,25 @@ class TopicManagementController implements IController {
 		$topicModel = new TopicModel();
 		$topicData = $topicModel->getCurrentTopic($topicId);
 		
+		$sql = "SELECT * 
+			FROM user_topic_acl acl
+			JOIN users u ON acl.user_id = u.user_id
+			WHERE rank_id = 2";
+		$database = new Database();
+		$ownerData = $database->query($sql);
+		
+		$sql = "SELECT *
+			FROM user_topic_acl acl
+			JOIN users u ON acl.user_id = u.user_id
+			WHERE rank_id = 3";
+		$database = new Database();
+		$moderatorData = $database->query($sql);
+		
 		$viewData = array(
 			"loginView" => $loginViewDecider->decide(),
-			"topicData" => $topicData
+			"topicData" => $topicData,
+			"owner" => $ownerData[0],
+			"moderators" => $moderatorData
 		);
 		if ($userId) {
 			return $view->render('topicManagementView.inc', $viewData);
