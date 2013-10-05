@@ -32,11 +32,11 @@ DROP DATABASE IF EXISTS `doxen`;
 CREATE DATABASE `doxen` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `doxen`;
 
---- --------------------------------------------------------
+-- --------------------------------------------------------
 
----
---- User permissions: `doxen`
----
+--
+-- User permissions: `doxen`
+--
 
 GRANT INSERT ON `doxen`.* TO `doxen`@`localhost`;
 GRANT SELECT ON `doxen`.* TO `doxen`@`localhost`;
@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `users_auth` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---- --------------------------------------------------------
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `user_topic_acl`
