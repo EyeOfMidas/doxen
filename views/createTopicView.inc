@@ -6,4 +6,5 @@
 	<input type="submit" value="Create Topic" />
 </form>
 </div>
+<?php include "sidebar.inc"; ?>
 </html>

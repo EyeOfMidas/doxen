@@ -6,6 +6,8 @@ class ControllerFactory {
 		$form = new Form();
 		$action = $form->get("a");
 		switch ($action) {
+			case "subscribe":
+				return new SubscribeController();
 			case "submittopicsettings":
 				return new SubmitTopicSettingsController();
 			case "topicmanagement":

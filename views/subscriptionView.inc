@@ -1,7 +1,11 @@
 <?php include "header.inc"; ?>
 <div id="pageBody">
 	<div id="content">
-		<div id="posts"><?=$postsView?></div>
+		<ul>
+		<?php foreach($topics as $topic) { ?>
+			<li><?=$topic?></li>
+		<?php } ?>
+		</ul>
 	</div>
 	<?php include "sidebar.inc"; ?>
 </div>

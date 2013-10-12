@@ -19,6 +19,7 @@ $userId = $session->getValue('logged_in');
 			<a href="/">Doxen</a>
 		</div>
 		<div id="loginContainer"><?=$loginView?></div>
+		<?php if(isset($defaultTopics)) { ?>
 		<div id="defaultTopics">
 			<ul>
 			<?php foreach($defaultTopics as $topic) { ?>
@@ -26,4 +27,5 @@ $userId = $session->getValue('logged_in');
 			<?php } ?>
 			</ul>
 		</div>
+		<?php } ?>
 	</div>

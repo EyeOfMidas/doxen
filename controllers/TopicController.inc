@@ -24,7 +24,7 @@ class TopicController implements IController {
 	}
 
 	public function execute() {
-		$topicId = $this->form->getCleanDefaulted("id");
+		$topicId = $this->form->getCleanDefaulted("id", 0);
 		$page = $this->form->getCleanDefaulted("c", 0);
 		
 		$currentTopic = $this->topicModel->getCurrentTopic($topicId);

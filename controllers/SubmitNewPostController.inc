@@ -68,10 +68,7 @@ class SubmitNewPostController implements IController {
 
 			 $header = new Header();
 			 
-			 echo "here";
 			 if(count($tagsFound) == 1) {
-			 	
-			 	var_dump("/?a=post&id=".$postId."&t=".$tagsFound[0]);
 			 	$header->redirect("/?a=post&id=".$postId."&t=".$tagsFound[0]);
 			 } else {
 			 	$header->redirect("/");

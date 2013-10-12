@@ -10,4 +10,5 @@
 	<input type="submit" value="Create Post" />
 </form>
 </div>
+<?php include "sidebar.inc"; ?>
 </html>
