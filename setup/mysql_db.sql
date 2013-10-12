@@ -179,6 +179,24 @@ CREATE TABLE IF NOT EXISTS `user_topic_acl` (
   UNIQUE KEY `user_id` (`user_id`,`topic_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+-- -------------------------------------------------------
+
+-- 
+-- Now that we've built the tables, how about some default data?
+-- 
+
+INSERT INTO `ranks` (`rank_id`, `name`) VALUES
+(1, 'Administrator'),
+(2, 'Owner'),
+(3, 'Moderator');
+
+INSERT INTO `users` (`user_id`, `email`, `username`, `display_name`) VALUES
+(1, 'admin@localhost', 'admin', 'Administrator');
+
+INSERT INTO `users_auth` (`user_id`, `passwordhash`) VALUES
+(1, SHA1('admin'));
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
