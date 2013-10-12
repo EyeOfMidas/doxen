@@ -44,9 +44,7 @@ $(document).ready(function() {
 	var openCommentReplyFunction = function() {
 			var replyContainer = $(this).parent();
 			var parentCommentId = $(this).data('id');
-			console.log('doxen.test/?a=commentreplies&id=' + parentCommentId);
 			$.get('?a=commentreplies&id=' + parentCommentId, function(result) {
-				console.log('got response', result);
 				replyContainer.html(result);
 				$('.loadCommentReplies').unbind('click');
 				$('.loadCommentReplies').click(openCommentReplyFunction);
