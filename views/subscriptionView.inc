@@ -1,4 +1,8 @@
-<?php include "header.inc"; ?>
+<?php
+$session = new Session();
+$userId = $session->getValue('logged_in');
+?>
+<?=$header?>
 <div id="pageBody">
 	<div id="content">
 		<ul>

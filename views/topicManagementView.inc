@@ -1,4 +1,4 @@
-<?php include "header.inc"; ?>
+<?=$header?>
 <div id="content">
 <form method="POST" action="/?a=submittopicsettings&id=<?=$topicData['topic_id']?>">
 <label for="topicDescription">Topic Description:</label><textarea id="topicDescription" name="topicDescription"><?=$topicData['description']?></textarea>

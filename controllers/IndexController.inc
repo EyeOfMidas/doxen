@@ -2,24 +2,25 @@
 
 class IndexController implements IController {
 
+	private $view;
+	private $form;
+	private $headRenderer;
+	private $postRenderer;
+	
+	public function __construct() {
+		$this->view = new View();
+		$this->form = new Form();
+		$this->headRenderer = new HeadRenderer();
+		$this->postRenderer = new PostRenderer();
+	}
+	
 	public function execute() {
-		$view = new View();
+		$page = $this->form->getCleanDefaulted("c", 0);
 		
-		$topicModel = new TopicModel();
-		$defaultTopics = $topicModel->getDefaultTopics();
-		
-		$form = new Form();
-		$dirtyPage = $form->getDefaulted("c", 0);
-		$postRenderer = new PostRenderer();
-		
-		$loginViewDecider = new LoginViewDecider();
-		$loginViewData = array();
-		$indexViewData = array(
-			"domain" => DOMAIN,
-			"loginView" => $loginViewDecider->decide(),
-			"postsView" => $postRenderer->getPostsInDefaultTopics($dirtyPage),
-			"defaultTopics" => $defaultTopics
+		$viewData = array(
+			"header" => $this->headRenderer->render(),
+			"postsView" => $this->postRenderer->getPostsInUserTopics($page)
 		);
-		return $view->render("indexView.inc", $indexViewData);
+		return $this->view->render("indexView.inc", $viewData);
 	}
 }

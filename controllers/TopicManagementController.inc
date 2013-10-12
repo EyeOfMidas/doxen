@@ -31,9 +31,10 @@ class TopicManagementController implements IController {
 		
 		$permissionDecider = new PermissionDecider();
 		$topicAccess = $permissionDecider->hasTopicAccess($topicId);
+		$headRenderer = new HeadRenderer();
 		
 		$viewData = array(
-			"loginView" => $loginViewDecider->decide(),
+			"header" => $headRenderer->render(),
 			"topicData" => $topicData,
 			"owner" => $ownerData[0],
 			"moderators" => $moderatorData,

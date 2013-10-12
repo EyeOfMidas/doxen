@@ -19,6 +19,20 @@ class TopicModel {
 		return $database->query($sql);
 	}
 	
+	public function getUserTopics() {
+		$session = new Session();
+		$userId = $session->getValue('logged_in');
+		if($userId) {
+			$sql = sprintf("SELECT * 
+				FROM topics 
+				WHERE topic_id 
+				IN (SELECT topic_id FROM user_topic_subscription WHERE user_id = '%s')", $userId);
+		$database = new Database();
+		return $database->query($sql);
+		}
+		return $this->getDefaultTopics();
+	}
+	
 	public function getCurrentTopic($topicId) {
 		$topicData = array();
 		$sql = sprintf("SELECT * FROM topics WHERE topic_id = '%s'", $topicId);

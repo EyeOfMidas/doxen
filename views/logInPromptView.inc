@@ -1,4 +1,4 @@
-<?php include "header.inc";?>
+<?=$header?>
 <div id="content">
 <p>You must be logged in to continue.<p>
 <?php include "loginView.inc"; ?>

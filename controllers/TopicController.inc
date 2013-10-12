@@ -1,18 +1,12 @@
 <?php
-
 class TopicController implements IController {
-
 	private $view;
-
 	private $topicModel;
-
 	private $form;
-
 	private $postRenderer;
-
 	private $loginViewDecider;
-
 	private $permissionDecider;
+	private $headRenderer;
 
 	public function __construct() {
 		$this->view = new View();
@@ -21,6 +15,7 @@ class TopicController implements IController {
 		$this->postRenderer = new PostRenderer();
 		$this->loginViewDecider = new LoginViewDecider();
 		$this->permissionDecider = new PermissionDecider();
+		$this->headRenderer = new HeadRenderer();
 	}
 
 	public function execute() {
@@ -28,17 +23,15 @@ class TopicController implements IController {
 		$page = $this->form->getCleanDefaulted("c", 0);
 		
 		$currentTopic = $this->topicModel->getCurrentTopic($topicId);
-		$defaultTopics = $this->topicModel->getDefaultTopics();
+		$defaultTopics = $this->topicModel->getUserTopics();
 		
 		$topicAccess = $this->permissionDecider->hasTopicAccess($topicId);
 		
 		$topicViewData = array(
-			"domain" => DOMAIN,
+			"header" => $this->headRenderer->render(),
 			"title" => $currentTopic['display_name'],
-			"loginView" => $this->loginViewDecider->decide(),
 			"topicData" => $currentTopic,
 			"postView" => $this->postRenderer->getPostsInTopic($topicId, $page),
-			'defaultTopics' => $defaultTopics,
 			'topicAccess' => $topicAccess
 		);
 		

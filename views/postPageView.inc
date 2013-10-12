@@ -1,8 +1,10 @@
 <?php
-include "header.inc";
 $humanReadableTime = new HumanReadableTime();
 $allTopicNames = array();
+$session = new Session();
+$userId = $session->getValue('logged_in');
 ?>
+<?=$header?>
 <div id="pageBody">
 	<div id="content">
 		<h1>

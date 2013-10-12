@@ -1,4 +1,4 @@
-<?php include "header.inc"; ?>
+<?=$header?>
 <div id="pageBody">
 	<div id="content">
 		<h1>

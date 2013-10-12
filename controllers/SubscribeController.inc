@@ -3,21 +3,19 @@
 class SubscribeController implements IController {
 
 	public function execute() {
-		// only logged in user can see
 		$session = new Session();
-		$userId = $session->getValue("logged_in");
 		$view = new View();
-		$topicModel = new TopicModel();
 		$database = new Database();
-		$loginViewDecider = new LoginViewDecider();
+		$headRenderer = new HeadRenderer();
+		
+		$userId = $session->getValue("logged_in");
 		
 		// get list of all topics (paginated)
 		$sql = "SELECT * FROM topics";
 		$topics = $database->query($sql);
 		
 		$viewData = array(
-			"domain" => DOMAIN,
-			"loginView" => $loginViewDecider->decide(),
+			"header" => $headRenderer->render(),
 			"topics" => $topics
 		);
 		if ($userId) {

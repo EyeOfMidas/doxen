@@ -1,5 +1,4 @@
 <?php
-
 class PostController implements IController {
 
 	public function execute() {
@@ -10,6 +9,7 @@ class PostController implements IController {
 		$topicModel = new TopicModel();
 		$commentsRenderer = new CommentsRenderer();
 		$permissionDecider = new PermissionDecider();
+		$headRenderer = new HeadRenderer();
 		
 		$postId = $form->getCleanDefaulted("id", 0);
 		$topicId = $form->getCleanDefaulted("t", 0);
@@ -17,15 +17,13 @@ class PostController implements IController {
 		$currentPost = $postModel->getPost($postId, $topicId);
 		$postTopics = $postModel->getPostTopics($postId);
 		
-		$defaultTopics = $topicModel->getDefaultTopics();
+		$defaultTopics = $topicModel->getUserTopics();
 		$currentTopic = $topicModel->getCurrentTopic($topicId);
 		
 		$postViewData = array(
-			"domain" => DOMAIN,
-			"loginView" => $loginViewDecider->decide(),
+			"header" => $headRenderer->render(),
 			"postData" => $currentPost,
 			"commentView" => $commentsRenderer->getTopLevelComments($postId, $topicId),
-			'defaultTopics' => $defaultTopics,
 			'postTopics' => $postTopics,
 			'topicData' => $currentTopic,
 			'topicAccess' => $permissionDecider->hasTopicAccess($topicId)

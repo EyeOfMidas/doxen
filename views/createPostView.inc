@@ -1,4 +1,4 @@
-<?php include "header.inc"; ?>
+<?=$header?>
 <div id="content">
 <form method="POST" action="/?a=submitnewpost">
 	<label for="postTitle">Post title:</label><input type="text" name="postTitle" id="postTitle" />
