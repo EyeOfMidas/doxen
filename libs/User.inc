@@ -26,5 +26,4 @@ class User {
 	public function getId() {
 		return $this->data['user_id'];
 	}
-
 }

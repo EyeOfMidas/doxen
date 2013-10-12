@@ -21,9 +21,32 @@ a:hover {
 	color: #FF9500;
 }
 
+textarea {
+	width: 400px;
+	height: 100px;
+	
+}
+
 .postByline {
 	font-size: x-small;
 }
+
+.postActions a:link,
+.postActions a:visited,
+.postActions a:active {
+	font-size: small;
+	color: gray;
+	font-weight: bold;
+}
+
+.postActions a:hover {
+	text-decoration: underline;
+}
+
+.comment .replies {
+	text-indent: 1em;
+}
+
 .commentByline {
 	font-size: x-small;
 }

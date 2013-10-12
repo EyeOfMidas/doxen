@@ -7,4 +7,8 @@ if(isset($message)) {?>
 	<input type="password" id="password" name="password" value="" />
 	<input type="submit" id="login" value="Login" />
 </form>
+<div style="font-size:10px;">
+<a href="#">Forgot password?</a>
+<a href="#">New user?</a>
+</div>
 

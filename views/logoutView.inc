@@ -1,3 +1,3 @@
-<form method="post" action="?a=logout">
-<?=$username?> : <input type="submit" id="logout" value="Log Out" />
-</form>
+<div style="font-size: 10px;">
+	<a href="?a=user&id=<?=$userId?>"><?=$username?></a> | <a href="#">preferences</a> | <a href="?a=logout">logout</a>
+</div>

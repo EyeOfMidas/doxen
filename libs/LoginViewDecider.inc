@@ -10,7 +10,7 @@ class LoginViewDecider {
 		if($userId){
 			$user = new User();
 			$user->populate();
-			$logoutViewData = array("username" => $user->getDisplayName());
+			$logoutViewData = array("username" => $user->getDisplayName(), "userId" => $userId);
 			return $view->render("logoutView.inc", $logoutViewData);
 		}
 		$errorMessage = $form->getCleanEncodedDefaulted("e", "");
