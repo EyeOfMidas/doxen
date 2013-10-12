@@ -179,6 +179,17 @@ CREATE TABLE IF NOT EXISTS `user_topic_acl` (
   UNIQUE KEY `user_id` (`user_id`,`topic_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_topic_subscription`
+--
+
+CREATE TABLE IF NOT EXISTS `user_topic_subscription` (
+  `user_id` int(11) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  UNIQUE KEY `user_id` (`user_id`,`topic_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- -------------------------------------------------------
 
