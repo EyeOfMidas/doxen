@@ -3,7 +3,7 @@
 	<div id="content">
 		<ul>
 		<?php foreach($topics as $topic) { ?>
-			<li><input class="subscribe" data-id="<?=$topic['topic_id']?>" type="checkbox" <?=$topic['subscribed'] ? 'checked="checked"' : ""?>/><a href="?a=topic&id=<?=$topic['topic_id']?>"><?=$topic['display_name']?></a> - <?=$topic['description']?></li>
+			<li><?php if($userId) {?><input class="subscribe" data-id="<?=$topic['topic_id']?>" type="checkbox" <?=$topic['subscribed'] ? 'checked="checked"' : ""?> /><?php } ?><a href="?a=topic&id=<?=$topic['topic_id']?>"><?=$topic['display_name']?></a> - <?=$topic['description']?></li>
 		<?php } ?>
 		</ul>
 	</div>
@@ -15,9 +15,9 @@ $(document).ready(function(){
 		var checkbox = $(this);
 		var topicId = checkbox.data('id');
 		if(checkbox.is(':checked')) {
-			console.log('subscribe to ' + topicId);
+			$.ajax('?a=changesubscription&id=' + topicId + '&s=1');
 		} else {
-			console.log('unsubscribe from ' + topicId);
+			$.ajax('?a=changesubscription&id=' + topicId + '&s=0');
 		}
 	});
 });

@@ -41,6 +41,7 @@ USE `doxen`;
 GRANT INSERT ON `doxen`.* TO `doxen`@`localhost`;
 GRANT SELECT ON `doxen`.* TO `doxen`@`localhost`;
 GRANT UPDATE ON `doxen`.* TO `doxen`@`localhost`;
+GRANT DELETE ON  `doxen`.`user_topic_subscription` TO  'doxen'@'localhost';
 FLUSH PRIVILEGES;
 
 -- --------------------------------------------------------
