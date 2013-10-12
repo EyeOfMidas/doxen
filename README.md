@@ -3,7 +3,7 @@
 
 ====
 
-<img src="http://i.imgur.com/RMM7Nni.jpg" title="Hosted by imgur.com" alt="" width="200" align="right" />
+<img src="https://raw.github.com/EyeOfMidas/doxen/master/htdocs/images/doxen.png" alt="" height="200" align="right"/>
 
 A very lightweight forum implementation.
 
