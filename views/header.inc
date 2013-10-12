@@ -16,7 +16,7 @@ $userId = $session->getValue('logged_in');
 <body>
 	<div id="header">
 		<div id="logo">
-			<a href="/">Doxen</a>
+			<a href="/"><img src="images/doxen_small.png" style="height: 50px;" /><img src="images/doxen_text.png" alt="Doxen" /></a>
 		</div>
 		<div id="loginContainer"><?=$loginView?></div>
 		<?php if(isset($defaultTopics)) { ?>
