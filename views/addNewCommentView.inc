@@ -1,5 +1,5 @@
 <div id="addComment">
-	Post a comment:
+	Commenting as: <?=$user->getDisplayName()?>
 	<form method="POST" action="?a=submitnewcomment">
 		<textarea name="commentBody"></textarea>
 		<br />

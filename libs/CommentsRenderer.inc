@@ -12,8 +12,9 @@ class CommentsRenderer {
 	}
 
 	public function getComments($postId, $topicId, $parentCommentId, $page = 0) {
-		$session = new Session();
-		$userId = $session->getValue("logged_in");
+		$user = new User();
+		$user->populate();
+		$userId = $user->getId();
 		
 		$sql = sprintf("SELECT c.comment_id, content, timestamp, poster_user_id, parent_post_id, parent_comment_id, c.url_name as comment_url_name, u.display_name as user_display_name, t.display_name as topic_display_name, t.url_name as topic_url_name
 			FROM comments c
@@ -34,7 +35,8 @@ class CommentsRenderer {
 		
 		$view = new View();
 		$viewData = array(
-			'comments' => $comments
+			'comments' => $comments,
+			'user' => $user
 		);
 		if($userId) {
 			$viewData['userId'] = $userId;
@@ -43,8 +45,9 @@ class CommentsRenderer {
 	}
 	
 	public function getReplies($parentCommentId, $page = 0) {
-		$session = new Session();
-		$userId = $session->getValue("logged_in");
+		$user = new User();
+		$user->populate();
+		$userId = $user->getId();
 		
 		$sql = sprintf("SELECT c.comment_id, content, timestamp, poster_user_id, parent_post_id, parent_comment_id, c.url_name as comment_url_name, u.display_name as user_display_name, t.display_name as topic_display_name, t.url_name as topic_url_name, t.topic_id
 			FROM comments c
@@ -64,6 +67,7 @@ class CommentsRenderer {
 		
 		$view = new View();
 		$viewData = array(
+			'user' => $user,
 			'comments' => $comments
 		);
 		if($userId) {

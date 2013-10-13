@@ -1,5 +1,5 @@
 <div class="commentReply" id="comment<?=$commentData['comment_id']?>" style="display: none;">
-Reply to <?=$commentData['user_display_name']?>:
+Commenting as: <?=$user->getDisplayName()?>
 	<form method="POST" action="?a=submitnewcomment">
 		<textarea name="commentBody"></textarea>
 		<br />

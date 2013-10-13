@@ -7,19 +7,16 @@ $userId = $session->getValue('logged_in');
 <?=$header?>
 <div id="contentContainer">
 	<div id="content">
-		<h1>
-			<a href="?a=post&id=<?=$postData['post_id']?>&t=<?=$postData['topic_id']?>"><?=$postData['post_name']?></a>
-		</h1>
+		<a href="?a=post&id=<?=$postData['post_id']?>&t=<?=$postData['topic_id']?>"><?=$postData['post_name']?></a>
 
 		<div id="byline">submitted <?=$humanReadableTime->formatString($postData['timestamp'])?> by <?=$postData['user_display_name']?>
-			<div id="parentTopics">Posted in topics:
-				<ul>
+		in topics:
+				<ul style="display:inline;margin: 0px;padding: 0px;list-style: none;">
 				<?php foreach($postTopics as $topic) { ?>
-					<li><a href="?a=topic&id=<?=$topic['topic_id']?>"><?=$topic['display_name']?></a></li>
+					<li style="display:inline;margin: 0px;padding: 0px;list-style: none;"><a href="?a=topic&id=<?=$topic['topic_id']?>"><?=$topic['display_name']?></a></li>
 					<?php $allTopicNames[] = $topic['display_name'];
 				} ?>
 				</ul>
-			</div>
 		</div>
 		<div id="postContents"><?=$postData['content']?></div>
 			<?php if ($userId) { ?>

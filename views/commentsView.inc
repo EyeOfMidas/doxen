@@ -5,9 +5,10 @@ foreach ($comments as $commentData) {
 <div class="comment">
 	<div class="commentByline"><?=$commentData['user_display_name']?> - <?=$humanReadableTime->formatString($commentData['timestamp'])?></div>
 	<p><?=$commentData['content']?></p>
-		<?php if(isset($userId) && $userId != null) {?>
+		<?php if(isset($userId)) {?>
 			<div class="commentActions">
-				<a data-id="<?=$commentData['comment_id']?>" class="toggleCommentReply" href="javascript:;">Reply</a>
+				<a data-id="<?=$commentData['comment_id']?>" class="toggleCommentReply" href="javascript:;">reply</a>
+				<a data-id="<?=$commentData['comment_id']?>" class="openCommentEdit" href="javascript:;">edit</a>
 			</div>
 		<?php } ?>
 		<?php

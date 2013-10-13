@@ -10,6 +10,9 @@ class PostController implements IController {
 		$commentsRenderer = new CommentsRenderer();
 		$permissionDecider = new PermissionDecider();
 		$headRenderer = new HeadRenderer();
+		$user = new User();
+		
+		$user->populate();
 		
 		$postId = $form->getCleanDefaulted("id", 0);
 		$topicId = $form->getCleanDefaulted("t", 0);
@@ -20,13 +23,15 @@ class PostController implements IController {
 		$defaultTopics = $topicModel->getUserTopics();
 		$currentTopic = $topicModel->getCurrentTopic($topicId);
 		
+		
 		$postViewData = array(
 			"header" => $headRenderer->render(),
 			"postData" => $currentPost,
 			"commentView" => $commentsRenderer->getTopLevelComments($postId, $topicId),
 			'postTopics' => $postTopics,
 			'topicData' => $currentTopic,
-			'topicAccess' => $permissionDecider->hasTopicAccess($topicId)
+			'topicAccess' => $permissionDecider->hasTopicAccess($topicId),
+			'user' => $user
 		);
 		
 		return $view->render("postPageView.inc", $postViewData);
