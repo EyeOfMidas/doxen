@@ -3,7 +3,7 @@ $session = new Session();
 $userId = $session->getValue('logged_in');
 ?>
 <?=$header?>
-<div id="pageBody">
+<div id="contentContainer">
 	<div id="content">
 		<ul>
 		<?php foreach($topics as $topic) { ?>
@@ -11,8 +11,8 @@ $userId = $session->getValue('logged_in');
 		<?php } ?>
 		</ul>
 	</div>
-	<?php include "sidebar.inc"; ?>
 </div>
+	<?php include "sidebar.inc"; ?>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.subscribe').click(function(){

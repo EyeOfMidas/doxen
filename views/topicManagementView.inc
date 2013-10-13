@@ -1,4 +1,5 @@
 <?=$header?>
+<div id="contentContainer">
 <div id="content">
 <form method="POST" action="/?a=submittopicsettings&id=<?=$topicData['topic_id']?>">
 <label for="topicDescription">Topic Description:</label><textarea id="topicDescription" name="topicDescription"><?=$topicData['description']?></textarea>
@@ -20,6 +21,7 @@
 	<label for="addTopicModerator">New Moderator:</label><input type="text" id="addTopicModerator" name="addTopicModerator"/><br />
 	<input type="submit" value="Save Changes" />
 </form>
+</div>
 </div>
 <?php include "topicSidebarView.inc"; ?>
 </html>

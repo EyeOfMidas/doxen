@@ -2,6 +2,7 @@
 $humanReadableTime = new HumanReadableTime();
 ?>
 <?=$header?>
+<div id="contentContainer">
 <div id="content">
 	<h1>
 			<a href="?a=post&id=<?=$postData['post_id']?>&t=<?=$topicId?>"><?=$postData['name']?></a>
@@ -23,6 +24,7 @@ $humanReadableTime = new HumanReadableTime();
 		<br />
 		<input type="submit" value="Save Changes" />
 	</form>
+</div>
 </div>
 <?php include "topicSidebarView.inc"; ?>
 </html>

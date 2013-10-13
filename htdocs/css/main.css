@@ -1,7 +1,7 @@
-html, body {
+html,body {
 	margin: 0px;
 	padding: 0px;
-	font-family: verdana,arial,helvetica,sans-serif;
+	font-family: verdana, arial, helvetica, sans-serif;
 	color: white;
 	background: white;
 }
@@ -12,7 +12,7 @@ h1 {
 	color: #26537C;
 }
 
-a, a:link, a:active, a:visited {
+a,a:link,a:active,a:visited {
 	text-decoration: none;
 	color: #0C5DA5;
 }
@@ -24,16 +24,13 @@ a:hover {
 textarea {
 	width: 400px;
 	height: 100px;
-	
 }
 
 .postByline {
 	font-size: x-small;
 }
 
-.postActions a:link,
-.postActions a:visited,
-.postActions a:active {
+.postActions a:link,.postActions a:visited,.postActions a:active {
 	font-size: small;
 	color: gray;
 	font-weight: bold;
@@ -55,13 +52,13 @@ textarea {
 	padding: 5px;
 	border-left: 1px solid gray;
 }
+
 .comment p {
 	padding: 0px;
 	margin: 0px;
 }
-.comment .commentActions a:link,
-.comment .commentActions a:visited,
-.comment .commentActions a:active {
+
+.comment .commentActions a:link,.comment .commentActions a:visited,.comment .commentActions a:active {
 	font-size: small;
 	color: gray;
 	font-weight: bold;
@@ -75,8 +72,6 @@ textarea {
 	text-indent: 1em;
 }
 
-
-
 /* Begin header styles */
 #header {
 	background: #679FD2;
@@ -88,7 +83,8 @@ textarea {
 #logo {
 	float: left;
 }
-#logo a:link, #logo a:visited, #logo a:active {
+
+#logo a:link,#logo a:visited,#logo a:active {
 	color: white;
 }
 
@@ -106,7 +102,7 @@ textarea {
 	font-size: small;
 }
 
-#defaultTopics a:link, #defaultTopics a:visited, #defaultTopics a:active {
+#defaultTopics a:link,#defaultTopics a:visited,#defaultTopics a:active {
 	color: #FFC573;
 }
 
@@ -118,7 +114,6 @@ textarea {
 	display: inline;
 	margin: 0px;
 	padding: 0px;
-	
 }
 
 #defaultTopics ul li {
@@ -130,12 +125,13 @@ textarea {
 /* End header styles */
 
 /* Begin body styles */
-#pageBody {
-	min-width: 600px;
+#contentContainer {
+	float: left;
 	width: 100%;
 }
+
 #content {
-	float: left;
+	margin-right: 310px;
 	padding: 5px 5px 5px 20px;
 	color: black;
 }
@@ -153,7 +149,6 @@ textarea {
 	display: inline;
 	margin: 0px;
 	padding: 0px;
-	
 }
 
 #parentTopics ul li {
@@ -174,13 +169,14 @@ textarea {
 
 #sidebar {
 	float: right;
+	width: 300px;
 	text-align: center;
+	margin-left: -310px;
 	padding: 5px;
 	background-color: #043A6B;
-	width: 300px;
 }
 
-#sidebar a:link, #sidebar a:visited, #sidebar a:active {
+#sidebar a:link,#sidebar a:visited,#sidebar a:active {
 	color: #FFC573;
 }
 

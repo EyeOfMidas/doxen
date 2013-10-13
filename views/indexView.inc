@@ -1,10 +1,10 @@
 <?=$header?>
-<div id="pageBody">
+<div id="contentContainer">
 	<div id="content">
 		<div id="posts"><?=$postsView?></div>
 	</div>
-	<?php include "sidebar.inc"; ?>
 </div>
+<?php include "sidebar.inc"; ?>
 </body>
 </html>
 

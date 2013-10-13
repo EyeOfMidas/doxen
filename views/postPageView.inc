@@ -5,7 +5,7 @@ $session = new Session();
 $userId = $session->getValue('logged_in');
 ?>
 <?=$header?>
-<div id="pageBody">
+<div id="contentContainer">
 	<div id="content">
 		<h1>
 			<a href="?a=post&id=<?=$postData['post_id']?>&t=<?=$postData['topic_id']?>"><?=$postData['post_name']?></a>
@@ -34,8 +34,8 @@ $userId = $session->getValue('logged_in');
 			 include "addNewCommentView.inc"; ?>
 			<div id="comments"><?=$commentView?></div>
 		</div>
+	</div>
 	<?php include "topicSidebarView.inc"; ?>
-</div>
 
 <script type="text/javascript">
 $(document).ready(function() {
