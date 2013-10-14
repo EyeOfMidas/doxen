@@ -11,7 +11,8 @@ class User {
 			$result = $database->query($sql);
 			$this->data = $result[0];
 		} else {
-			throw new SessionExpiredException();
+			//throw new SessionExpiredException();
+			//shouldn't throw, but something needs to be done if the user isn't logged in
 		}
 	}
 
