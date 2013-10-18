@@ -11,6 +11,9 @@ define("MYSQLI_DB", "doxen");
 define("MEMCACHED_SERVER", "localhost");
 define("MEMCACHED_PORT", "11211");
 
+define("SOURCE_PATH", "/home/midas/git/doxen/");
+define("DEPLOY_PATH", "/home/midas/public_html/doxen/");
+
 /* --------- Do not edit below this line --------- */
 define("ROOT", dirname(__FILE__));
 define("LIBROOT", ROOT . "/libs/");
