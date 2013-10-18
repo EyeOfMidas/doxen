@@ -25,6 +25,8 @@ class PostRenderer {
 			
 			$posts = $this->database->query($sql);
 			
+			$posts = $this->addCommentCount($posts);
+			
 			$postViewData = array(
 				"posts" => $posts
 			);
@@ -45,10 +47,22 @@ class PostRenderer {
 		
 		$posts = $this->database->query($sql);
 		
+		$posts = $this->addCommentCount($posts);
+		
 		$postViewData = array(
 			"posts" => $posts
 		);
 		return $view->render("postView.inc", $postViewData);
+	}
+	
+	private function addCommentCount($posts) {
+		foreach($posts as $index => $post) {
+			$sql = sprintf("SELECT count(*) AS comment_count FROM comments WHERE parent_post_id = '%s'", $post['post_id']);
+			$countResult = $this->database->query($sql);
+			$count = $countResult[0]['comment_count'];
+			$posts[$index]['comment_count'] = $count;
+		}
+		return $posts;
 	}
 
 	public function getPostsInTopic($topicId, $page = 0) {
@@ -61,6 +75,9 @@ class PostRenderer {
 			WHERE a.topic_id = '%s' 
 			ORDER BY timestamp DESC LIMIT %s, %s", $topicId, $page * PostRenderer::PAGE_SIZE, PostRenderer::PAGE_SIZE);
 		$posts = $this->database->query($sql);
+		
+		$posts = $this->addCommentCount($posts);
+		
 		$postViewData = array(
 			"posts" => $posts
 		);

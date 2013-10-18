@@ -72,6 +72,15 @@ textarea {
 	text-indent: 1em;
 }
 
+.commentCount a:link,.commentCount a:visited,.commentCount a:active {
+	color: #A66100;
+	font-weight: bold;
+}
+
+.commentCount a:hover {
+	color: #FFB040;
+}
+
 /* Begin header styles */
 #header {
 	background: #679FD2;
