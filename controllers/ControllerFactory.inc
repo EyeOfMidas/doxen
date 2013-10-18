@@ -6,6 +6,10 @@ class ControllerFactory {
 		$form = new Form();
 		$action = $form->get("a");
 		switch ($action) {
+			case "user":
+				return new UserController();
+			case "preferences":
+				return new UserPreferencesController();
 			case "submiteditpost":
 				return new SubmitEditPostController();
 			case "editpost":
