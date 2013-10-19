@@ -3,7 +3,7 @@ $humanReadableTime = new HumanReadableTime();
 foreach ($comments as $commentData) {
 	?>
 <div class="comment" id="comment<?=$commentData['comment_id']?>">
-	<div class="commentByline"><?=$commentData['display_name']?> - <?=$humanReadableTime->formatString($commentData['timestamp'])?></div>
+	<div class="commentByline"><?=$commentData['display_name']?> - <?=$humanReadableTime->formatString($commentData['timestamp'])?><?=$commentData['is_edited'] ? '*' : ''?></div>
 	<p class="contents"><?=$commentData['content']?></p>
 	<div class="editWindow" style="display:none;">
 	<?php include "editCommentView.inc"; ?>

@@ -12,7 +12,7 @@ class CommentsRenderer {
 		$user->populate();
 		$userId = $user->getId();
 		
-		$sql = sprintf("SELECT c.comment_id, c.content, c.timestamp, c.url_name, ca.parent_comment_id, cp.post_id, pt.topic_id, u.user_id, u.username, u.display_name
+		$sql = sprintf("SELECT c.comment_id, c.content, c.timestamp, c.url_name, c.is_edited, ca.parent_comment_id, cp.post_id, pt.topic_id, u.user_id, u.username, u.display_name
 			FROM comments c
 			JOIN comment_comment_associations ca ON c.comment_id = ca.comment_id
 			JOIN comment_post_associations cp ON c.comment_id = cp.comment_id
@@ -47,7 +47,7 @@ class CommentsRenderer {
 		$user->populate();
 		$userId = $user->getId();
 		
-		$sql = sprintf("SELECT c.comment_id, c.content, c.timestamp, c.url_name, ca.parent_comment_id, cp.post_id, pt.topic_id, u.user_id, u.username, u.display_name
+		$sql = sprintf("SELECT c.comment_id, c.content, c.timestamp, c.url_name, c.is_edited, ca.parent_comment_id, cp.post_id, pt.topic_id, u.user_id, u.username, u.display_name
 			FROM comments c
 			JOIN comment_comment_associations ca ON c.comment_id = ca.comment_id
 			JOIN comment_post_associations cp ON c.comment_id = cp.comment_id

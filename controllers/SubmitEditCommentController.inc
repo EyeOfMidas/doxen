@@ -30,7 +30,7 @@ class SubmitEditCommentController implements IController {
 		$userId = $user->getId();
 		
 		if ($userId == $commentData['user_id']) {
-			$sql = sprintf("UPDATE comments SET content = '%s' WHERE comment_id = '%s'", $content, $commentId);
+			$sql = sprintf("UPDATE comments SET content = '%s', is_edited = 1 WHERE comment_id = '%s'", $content, $commentId);
 			$database->query($sql);
 		}
 		$header = new Header();
