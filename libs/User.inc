@@ -27,4 +27,8 @@ class User {
 	public function getId() {
 		return $this->data['user_id'];
 	}
+	
+	public function getEmail() {
+		return $this->data['email'];
+	}
 }
