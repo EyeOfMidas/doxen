@@ -35,18 +35,6 @@ USE `doxen`;
 -- --------------------------------------------------------
 
 --
--- User permissions: `doxen`
---
-
-GRANT INSERT ON `doxen`.* TO `doxen`@`localhost`;
-GRANT SELECT ON `doxen`.* TO `doxen`@`localhost`;
-GRANT UPDATE ON `doxen`.* TO `doxen`@`localhost`;
-GRANT DELETE ON  `doxen`.`user_topic_subscription` TO  'doxen'@'localhost';
-FLUSH PRIVILEGES;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `comments`
 --
 
@@ -236,6 +224,19 @@ CREATE TABLE IF NOT EXISTS `user_topic_subscription` (
   `topic_id` int(11) NOT NULL,
   UNIQUE KEY `user_id` (`user_id`,`topic_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- User permissions: `doxen`
+--
+
+GRANT INSERT ON `doxen`.* TO `doxen`@`localhost`;
+GRANT SELECT ON `doxen`.* TO `doxen`@`localhost`;
+GRANT UPDATE ON `doxen`.* TO `doxen`@`localhost`;
+GRANT DELETE ON  `doxen`.`user_topic_subscription` TO  'doxen'@'localhost';
+FLUSH PRIVILEGES;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
