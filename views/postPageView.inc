@@ -9,7 +9,7 @@ $userId = $session->getValue('logged_in');
 	<div id="content">
 		<a href="?a=post&id=<?=$postData['post_id']?>&t=<?=$postData['topic_id']?>"><?=$postData['post_name']?></a>
 
-		<div id="byline">submitted <?=$humanReadableTime->formatString($postData['timestamp'])?> by <?=$postData['user_display_name']?>
+		<div id="byline">submitted <?=$humanReadableTime->formatString($postData['timestamp'])?> by <a href="/?a=user&id=<?=$postData['user_id']?>"><?=$postData['user_display_name']?></a>
 		in topic:<a href="?a=topic&id=<?=$postData['topic_id']?>"><?=$postData['topic_display_name']?></a>
 		</div>
 		<div id="postContents"><?=$postData['content']?></div>
