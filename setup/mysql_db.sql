@@ -41,8 +41,9 @@ USE `doxen`;
 CREATE TABLE IF NOT EXISTS `comments` (
   `comment_id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `url_name` varchar(256) NOT NULL,
+  `is_edited` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`comment_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
