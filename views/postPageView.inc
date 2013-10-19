@@ -41,8 +41,10 @@ $(document).ready(function() {
 				replyContainer.html(result);
 				$('.loadCommentReplies').unbind('click');
 				$('.toggleCommentReply').unbind('click');
+				$('.openCommentEdit').unbind('click');
 				$('.loadCommentReplies').click(openCommentReplyFunction);
 				$('.toggleCommentReply').click(toggleCommentInputWindow);
+				$('.openCommentEdit').click(openCommentEdit);
 				});
 	};
 	var openCommentEdit = function() {
