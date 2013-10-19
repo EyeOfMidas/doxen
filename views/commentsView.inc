@@ -8,7 +8,7 @@ foreach ($comments as $commentData) {
 		<?php if(isset($userId)) {?>
 			<div class="commentActions">
 				<a data-id="<?=$commentData['comment_id']?>" class="toggleCommentReply" href="javascript:;">reply</a>
-				<!--<a data-id="<?=$commentData['comment_id']?>" class="openCommentEdit" href="javascript:;">edit</a>-->
+				<a data-id="<?=$commentData['comment_id']?>" class="openCommentEdit" href="javascript:;">edit</a>
 			</div>
 		<?php } ?>
 		<?php
