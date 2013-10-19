@@ -17,8 +17,7 @@ class PostController implements IController {
 		$postId = $form->getCleanDefaulted("id", 0);
 		$topicId = $form->getCleanDefaulted("t", 0);
 		
-		$currentPost = $postModel->getPost($postId, $topicId);
-		$postTopics = $postModel->getPostTopics($postId);
+		$currentPost = $postModel->getPost($postId);
 		
 		$defaultTopics = $topicModel->getUserTopics();
 		$currentTopic = $topicModel->getCurrentTopic($topicId);
@@ -28,7 +27,6 @@ class PostController implements IController {
 			"header" => $headRenderer->render(),
 			"postData" => $currentPost,
 			"commentView" => $commentsRenderer->getTopLevelComments($postId),
-			'postTopics' => $postTopics,
 			'topicData' => $currentTopic,
 			'topicAccess' => $permissionDecider->hasTopicAccess($topicId),
 			'user' => $user
