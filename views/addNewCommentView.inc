@@ -1,11 +1,8 @@
 <div id="addComment">
 	Commenting as: <?=$user->getDisplayName()?>
-	<form method="POST" action="?a=submitnewcomment">
+	<form method="POST" action="?a=submitnewcomment&id=<?=$postData['post_id']?>&t=<?=$postData['topic_id']?>">
 		<textarea name="commentBody"></textarea>
 		<br />
-		<input type="text" name="commentTags" value="<?=implode(', ', $allTopicNames)?>" />
-		<input type="hidden" name="currentTopic" value="<?=$postData['topic_id']?>" />
-		<input type="hidden" name="currentPost" value="<?=$postData['post_id']?>" />
 		<input type="hidden" name="parentComment" value="<?=$parentCommentId?>" />
 		<input type="submit" name="submit" value="Post" />
 	</form>

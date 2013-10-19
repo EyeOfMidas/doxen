@@ -1,68 +1,71 @@
 <?php
-
 class SubmitNewCommentController implements IController {
+	private $user;
+	private $form;
+	private $userInputScrubber;
+	private $stringURLLinker;
+	private $database;
+	private $header;
+
+	public function __construct() {
+		$this->user = new User();
+		$this->form = new Form();
+		$this->userInputScrubber = new UserInputScrubber();
+		$this->stringUrlLinker = new StringURLLinker();
+		$this->database = new Database();
+		$this->header = new Header();
+	}
 
 	public function execute() {
-		$session = new Session();
-		$logger = new Logger();
-		$userId = $session->getValue("logged_in");
+		$this->user->populate();
+		$userId = $this->user->getId();
 		
 		if ($userId) {
-			$form = new Form();
-			$commentBody = $form->post('commentBody');
-			$commentTags = $form->post('commentTags');
-			$currentPostId = $form->post('currentPost');
-			$currentTopicId = $form->post('currentTopic');
-			$parentCommentId = $form->post('parentComment');
+			$commentBody = $this->form->postCleanDefaulted('commentBody', '');
+			$currentPostId = $this->form->getCleanDefaulted('id', 0);
+			$currentTopicId = $this->form->getCleanDefaulted('t', 0);
+			$parentCommentId = $this->form->postCleanDefaulted('parentComment', 0);
 			
-			$userInputScrubber = new UserInputScrubber();
-			
-			$commentBody = $userInputScrubber->scrubString($commentBody);
+			$commentBody = $this->userInputScrubber->scrubString($commentBody);
 			if ($commentBody == "") {
 				// TODO: empty comment, what do
 				return;
 			}
 			
-			$stringUrlLinker = new StringURLLinker();
-			$commentBody = $stringUrlLinker->replaceUrlsWithLinks($commentBody);
+			$commentBody = $this->stringUrlLinker->replaceUrlsWithLinks($commentBody);
 			
-			$commentTags = $userInputScrubber->scrubString($commentTags);
-			
-			$tagDecoder = new TagDecoder();
-			$tagsFound = $tagDecoder->getTagIds($commentTags);
-			
-			if (count($tagsFound) <= 0) {
-				// TODO: no tags defined, no where to post this
+			if (empty($currentTopicId)) {
+				// somehow they're posting in an undefined topic. No.
 				return;
 			}
 			
-			if (empty($currentTopicId)) {
-				$currentTopicId = $tagsFound[0];
-			}
+			$parentCommentId = $this->userInputScrubber->scrubString($parentCommentId);
 			
-			$parentCommentId = $userInputScrubber->scrubString($parentCommentId);
-			
-			$sql = sprintf("INSERT INTO comments (content, timestamp, poster_user_id, parent_post_id, parent_comment_id) 
-				VALUES ('%s', NOW(), '%s', '%s', '%s')", $commentBody, $userId, $currentPostId, $parentCommentId);
-			$database = new Database();
-			$commentId = $database->write($sql);
+			// TODO insert comment
+			$sql = sprintf("INSERT INTO comments (content, timestamp) 
+				VALUES ('%s', NOW())", $commentBody);
+			$commentId = $this->database->write($sql);
 			
 			if ($commentId == 0) {
 				// TODO:something went wrong with saving the post, do something here
 				return;
 			}
-			$associationValues = array();
-			$sql = "INSERT INTO comment_topic_associations (comment_id, topic_id) VALUES ";
-			foreach ($tagsFound as $topicId) {
-				$associationValues[] = "(" . $commentId . "," . $topicId . ")";
-			}
-			$sql .= implode(',', $associationValues);
-			$database->write($sql);
 			
-			$header = new Header();
-			$header->redirect("/?a=post&id=" . $currentPostId . "&t=" . $currentTopicId);
+			$sql = sprintf("INSERT INTO comment_comment_associations (comment_id, parent_comment_id)
+				VALUES ('%s', '%s')", $commentId, $parentCommentId);
+			$this->database->write($sql);
+			
+			$sql = sprintf("INSERT INTO comment_user_associations (comment_id, user_id)
+				VALUES ('%s', '%s')", $commentId, $userId);
+			$this->database->write($sql);
+			
+			$sql = sprintf("INSERT INTO comment_post_associations (comment_id, post_id)
+				VALUES ('%s', '%s')", $commentId, $currentPostId);
+			$this->database->write($sql);
+			
+			$this->header->redirect("/?a=post&id=" . $currentPostId . "&t=" . $currentTopicId);
 		} else {
-			// TODO: not logged in
+			$this->header->redirect("/");
 		}
 	}
 }

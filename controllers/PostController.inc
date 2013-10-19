@@ -27,7 +27,7 @@ class PostController implements IController {
 		$postViewData = array(
 			"header" => $headRenderer->render(),
 			"postData" => $currentPost,
-			"commentView" => $commentsRenderer->getTopLevelComments($postId, $topicId),
+			"commentView" => $commentsRenderer->getTopLevelComments($postId),
 			'postTopics' => $postTopics,
 			'topicData' => $currentTopic,
 			'topicAccess' => $permissionDecider->hasTopicAccess($topicId),

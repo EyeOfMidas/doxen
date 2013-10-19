@@ -47,18 +47,6 @@ FLUSH PRIVILEGES;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment_topic_associations`
---
-
-CREATE TABLE IF NOT EXISTS `comment_topic_associations` (
-  `comment_id` int(11) NOT NULL,
-  `topic_id` int(11) NOT NULL,
-  UNIQUE KEY `post_id` (`comment_id`,`topic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `comments`
 --
 
@@ -66,12 +54,45 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `comment_id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `poster_user_id` int(11) NOT NULL,
-  `parent_post_id` int(11) NOT NULL,
-  `parent_comment_id` int(11) NOT NULL,
   `url_name` varchar(256) NOT NULL,
   PRIMARY KEY (`comment_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment_comment_associations`
+--
+
+CREATE TABLE IF NOT EXISTS `comment_comment_associations` (
+  `comment_id` int(11) NOT NULL,
+  `parent_comment_id` int(11) NOT NULL,
+  UNIQUE KEY `comment_id` (`comment_id`,`parent_comment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment_post_associations`
+--
+
+CREATE TABLE IF NOT EXISTS `comment_post_associations` (
+  `comment_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  UNIQUE KEY `comment_id` (`comment_id`,`post_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment_user_associations`
+--
+
+CREATE TABLE IF NOT EXISTS `comment_user_associations` (
+  `comment_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  UNIQUE KEY `comment_id` (`comment_id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -81,8 +102,25 @@ CREATE TABLE IF NOT EXISTS `comments` (
 
 CREATE TABLE IF NOT EXISTS `default_topics` (
   `topic_id` int(11) NOT NULL,
-  `sort_order` int(3) NOT NULL
+  `sort_order` int(3) NOT NULL,
+  UNIQUE KEY `UNIQUE` (`topic_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `posts`
+--
+
+CREATE TABLE IF NOT EXISTS `posts` (
+  `post_id` int(11) NOT NULL AUTO_INCREMENT,
+  `poster_user_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `name` varchar(256) NOT NULL,
+  `url_name` varchar(256) NOT NULL,
+  `content` text NOT NULL,
+  PRIMARY KEY (`post_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -99,22 +137,6 @@ CREATE TABLE IF NOT EXISTS `post_topic_associations` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
---
-
-CREATE TABLE IF NOT EXISTS `posts` (
-  `post_id` int(11) NOT NULL AUTO_INCREMENT,
-  `poster_user_id` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `name` varchar(256) NOT NULL,
-  `url_name` varchar(256) NOT NULL,
-  `content` text NOT NULL,
-  PRIMARY KEY (`post_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `ranks`
 --
 
@@ -123,6 +145,15 @@ CREATE TABLE IF NOT EXISTS `ranks` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`rank_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `ranks`
+--
+
+INSERT INTO `ranks` (`rank_id`, `name`) VALUES
+(1, 'Administrator'),
+(2, 'Owner'),
+(3, 'Moderator');
 
 -- --------------------------------------------------------
 
@@ -137,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `topics` (
   `description` text NOT NULL,
   `sidebar` text NOT NULL,
   PRIMARY KEY (`topic_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -153,7 +184,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `email`, `username`, `display_name`) VALUES
+(1, 'admin@localhost', 'admin', 'Administrator');
 
 -- --------------------------------------------------------
 
@@ -166,6 +204,13 @@ CREATE TABLE IF NOT EXISTS `users_auth` (
   `passwordhash` varchar(255) NOT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users_auth`
+--
+
+INSERT INTO `users_auth` (`user_id`, `passwordhash`) VALUES
+(1, 'd033e22ae348aeb5660fc2140aec35850c4da997');
 
 -- --------------------------------------------------------
 
@@ -191,23 +236,6 @@ CREATE TABLE IF NOT EXISTS `user_topic_subscription` (
   `topic_id` int(11) NOT NULL,
   UNIQUE KEY `user_id` (`user_id`,`topic_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- -------------------------------------------------------
-
--- 
--- Now that we've built the tables, how about some default data?
--- 
-
-INSERT INTO `ranks` (`rank_id`, `name`) VALUES
-(1, 'Administrator'),
-(2, 'Owner'),
-(3, 'Moderator');
-
-INSERT INTO `users` (`user_id`, `email`, `username`, `display_name`) VALUES
-(1, 'admin@localhost', 'admin', 'Administrator');
-
-INSERT INTO `users_auth` (`user_id`, `passwordhash`) VALUES
-(1, SHA1('admin'));
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

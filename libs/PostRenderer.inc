@@ -1,9 +1,6 @@
 <?php
-
 class PostRenderer {
-
 	const PAGE_SIZE = 20;
-
 	private $database;
 
 	public function __construct() {
@@ -11,8 +8,9 @@ class PostRenderer {
 	}
 
 	public function getPostsInUserTopics($page = 0) {
-		$session = new Session();
-		$userId = $session->getValue('logged_in');
+		$user = new User();
+		$user->populate();
+		$userId = $user->getId();
 		if ($userId) {
 			$view = new View();
 			$sql = sprintf("SELECT p.post_id, u.user_id, p.timestamp, p.name as post_name, p.url_name as post_url_name, p.content, u.username, u.display_name as user_display_name, t.topic_id, t.display_name as topic_display_name
@@ -54,10 +52,10 @@ class PostRenderer {
 		);
 		return $view->render("postView.inc", $postViewData);
 	}
-	
+
 	private function addCommentCount($posts) {
-		foreach($posts as $index => $post) {
-			$sql = sprintf("SELECT count(*) AS comment_count FROM comments WHERE parent_post_id = '%s'", $post['post_id']);
+		foreach ($posts as $index => $post) {
+			$sql = sprintf("SELECT count(*) AS comment_count FROM comment_post_associations WHERE post_id = '%s'", $post['post_id']);
 			$countResult = $this->database->query($sql);
 			$count = $countResult[0]['comment_count'];
 			$posts[$index]['comment_count'] = $count;

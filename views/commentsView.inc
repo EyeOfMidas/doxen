@@ -3,7 +3,7 @@ $humanReadableTime = new HumanReadableTime();
 foreach ($comments as $commentData) {
 	?>
 <div class="comment">
-	<div class="commentByline"><?=$commentData['user_display_name']?> - <?=$humanReadableTime->formatString($commentData['timestamp'])?></div>
+	<div class="commentByline"><?=$commentData['display_name']?> - <?=$humanReadableTime->formatString($commentData['timestamp'])?></div>
 	<p><?=$commentData['content']?></p>
 		<?php if(isset($userId)) {?>
 			<div class="commentActions">
