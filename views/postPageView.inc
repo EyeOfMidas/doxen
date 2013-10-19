@@ -33,7 +33,8 @@ $(document).ready(function() {
 	var toggleCommentInputWindow = function() {
 		$('#comment'+$(this).data('id')+'.commentReply').toggle();
 	};
-	var openCommentReplyFunction = function() {
+	var openCommentReplyFunction = function() {};
+	openCommentReplyFunction = function() {
 			var replyContainer = $(this).parent();
 			var parentCommentId = $(this).data('id');
 			$.get('?a=commentreplies&id=' + parentCommentId, function(result) {
@@ -44,8 +45,16 @@ $(document).ready(function() {
 				$('.toggleCommentReply').click(toggleCommentInputWindow);
 				});
 	};
+	var openCommentEdit = function() {
+		var commentId = $(this).data('id');
+		//TODO: async call to server to get comment contents
+		$('#comment'+commentId+ ' .editWindow').toggle();
+		$('#comment'+commentId+ ' .contents').toggle();
+	};
 	$('.loadCommentReplies').click(openCommentReplyFunction);
 	$('.toggleCommentReply').click(toggleCommentInputWindow);
+	$('.openCommentEdit').click(openCommentEdit);
+	
 });
 </script>
 </body>

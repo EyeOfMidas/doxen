@@ -2,9 +2,12 @@
 $humanReadableTime = new HumanReadableTime();
 foreach ($comments as $commentData) {
 	?>
-<div class="comment">
+<div class="comment" id="comment<?=$commentData['comment_id']?>">
 	<div class="commentByline"><?=$commentData['display_name']?> - <?=$humanReadableTime->formatString($commentData['timestamp'])?></div>
-	<p><?=$commentData['content']?></p>
+	<p class="contents"><?=$commentData['content']?></p>
+	<div class="editWindow" style="display:none;">
+	<?php include "editCommentView.inc"; ?>
+	</div>
 		<?php if(isset($userId)) {?>
 			<div class="commentActions">
 				<a data-id="<?=$commentData['comment_id']?>" class="toggleCommentReply" href="javascript:;">reply</a>
