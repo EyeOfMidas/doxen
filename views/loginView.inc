@@ -9,6 +9,6 @@ if(isset($message)) {?>
 </form>
 <div style="font-size:10px;">
 <a href="#">Forgot password?</a>
-<a href="#">New user?</a>
+<a href="?a=register">New user?</a>
 </div>
 
