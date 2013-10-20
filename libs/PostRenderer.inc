@@ -19,7 +19,8 @@ class PostRenderer {
 			JOIN users u ON p.poster_user_id = u.user_id
 			JOIN topics t on t.topic_id = a.topic_id
 			WHERE a.topic_id IN (SELECT topic_id FROM user_topic_subscription WHERE user_id = '%s')
-			ORDER BY timestamp DESC LIMIT %s, %s", $userId, $page * PostRenderer::PAGE_SIZE, PostRenderer::PAGE_SIZE);
+			OR a.topic_id IN (SELECT subtopic_id FROM topic_topic_associations WHERE topic_id IN (SELECT topic_id FROM user_topic_subscription WHERE user_id = '%s'))
+			ORDER BY timestamp DESC LIMIT %s, %s", $userId, $userId, $page * PostRenderer::PAGE_SIZE, PostRenderer::PAGE_SIZE);
 			
 			$posts = $this->database->query($sql);
 			
@@ -41,6 +42,7 @@ class PostRenderer {
 			JOIN users u ON p.poster_user_id = u.user_id 
 			JOIN topics t on t.topic_id = a.topic_id
 			WHERE a.topic_id IN (SELECT topic_id FROM default_topics) 
+			OR a.topic_id IN (SELECT subtopic_id FROM topic_topic_associations WHERE topic_id IN (SELECT topic_id FROM default_topics))
 			ORDER BY timestamp DESC LIMIT %s, %s", $page * PostRenderer::PAGE_SIZE, PostRenderer::PAGE_SIZE);
 		
 		$posts = $this->database->query($sql);
@@ -71,7 +73,8 @@ class PostRenderer {
 			JOIN users u ON p.poster_user_id = u.user_id 
 			JOIN topics t ON a.topic_id = t.topic_id
 			WHERE a.topic_id = '%s' 
-			ORDER BY timestamp DESC LIMIT %s, %s", $topicId, $page * PostRenderer::PAGE_SIZE, PostRenderer::PAGE_SIZE);
+			OR a.topic_id IN (SELECT subtopic_id FROM topic_topic_associations WHERE topic_id = '%s')
+			ORDER BY timestamp DESC LIMIT %s, %s", $topicId, $topicId, $page * PostRenderer::PAGE_SIZE, PostRenderer::PAGE_SIZE);
 		$posts = $this->database->query($sql);
 		
 		$posts = $this->addCommentCount($posts);

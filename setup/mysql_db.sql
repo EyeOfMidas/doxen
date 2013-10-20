@@ -229,6 +229,18 @@ CREATE TABLE IF NOT EXISTS `user_topic_subscription` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `topic_topic_associations`
+--
+
+CREATE TABLE IF NOT EXISTS `topic_topic_associations` (
+  `topic_id` int(11) NOT NULL,
+  `subtopic_id` int(11) NOT NULL,
+  UNIQUE KEY `topic_id` (`topic_id`,`subtopic_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- User permissions: `doxen`
 --
 
