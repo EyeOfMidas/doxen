@@ -6,6 +6,8 @@ class ControllerFactory {
 		$form = new Form();
 		$action = $form->get("a");
 		switch ($action) {
+			case "addsubtopic":
+				return new AddSubTopicController();
 			case "submitregister":
 				return new SubmitRegisterController();
 			case "register":
