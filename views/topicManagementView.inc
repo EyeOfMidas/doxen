@@ -23,18 +23,18 @@ Owner: <?=$owner['display_name']?>
 	<label for="addTopicModerator">New Moderator:</label><input type="text" id="addTopicModerator" name="addTopicModerator"/><br />
 	<input type="submit" value="Add moderator" />
 </form>
-<form method="POST" action="/?a=addsubtopic&id=<?=$topicData['topic_id']?>">
 Topic subscriptions: 
 	<?php if (count($subtopics) == 0) { ?>
 	No topics
 	<? } else { ?>
 	<ul>
 	<?php foreach($subtopics as $subtopic) { ?>
-		<li><?=$subtopic['display_name']?></li>
+		<li><a href="?a=removesubtopic&id=<?=$topicData['topic_id']?>&subtopic=<?=$subtopic['topic_id']?>">X</a> | <a href="?a=topic&id=<?=$subtopic['topic_id']?>"><?=$subtopic['display_name']?></a></li>
 		<?php } ?>
 	 </ul>
 	<?php }?>
 	 <br />
+<form method="POST" action="/?a=addsubtopic&id=<?=$topicData['topic_id']?>">
 	<label for="addSubtopic">New Topic:</label><input type="text" id="addSubtopic" name="addSubtopic"/><br />
 	<input type="submit" value="Add Topic" />
 </form>
