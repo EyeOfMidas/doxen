@@ -4,11 +4,14 @@ class AddSubTopicController implements IController {
 		//TODO: only admin, owner, moderator can see this page
 		$form = new Form();
 		$topicId = $form->getCleanDefaulted('id', 0);
-		$topicName = $form->getCleanDefaulted('addSubtopic', "");
-		
-		//convert name into topic id
-		//if valid topic id, add to topic_topic_associations table
-		
+		$topicName = $form->postCleanDefaulted('addSubtopic', "");
+		$topicModel = new TopicModel();
+		$subscribingTopicId = $topicModel->getIdForTopicName($topicName);
+		if($subscribingTopicId != 0 && $subscribingTopicId != $topicId) {
+			$sql = sprintf("INSERT INTO topic_topic_associations (topic_id, subtopic_id) VALUES (%s, %s)", $topicId, $subscribingTopicId);
+			$database = new Database();
+			$database->write($sql);
+		}
 			
 		$header = new Header();
 		$header->redirect('?a=topicmanagement&id=' . $topicId);

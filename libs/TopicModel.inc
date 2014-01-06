@@ -43,4 +43,15 @@ class TopicModel {
 		}
 		return array();
 	}
+	
+	public function getIdForTopicName($topicName) {		
+		$topicId = 0;
+		$sql = "SELECT topic_id FROM topics WHERE display_name LIKE '%". $topicName . "%'";
+		$database = new Database();
+		$result = $database->query($sql);
+		if(count($result) > 0) {
+			$topicId = $result[0]['topic_id'];
+		}
+		return $topicId;
+	}
 }
