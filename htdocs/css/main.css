@@ -25,6 +25,10 @@ textarea {
 	width: 400px;
 	height: 100px;
 }
+.newPost {
+	color: orangered;
+	font-weight: bold;
+}
 
 .postByline {
 	font-size: x-small;

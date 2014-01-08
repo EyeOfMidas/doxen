@@ -48,11 +48,14 @@ class SubmitNewPostController implements IController {
 				VALUES (%s, NOW(), '%s', '%s', '%s')", $userId, $title, $webWrapper->convertToUrl($title), $postContent);
 			
 			$postId = $database->write($sql);
-			
+						
 			if ($postId == 0) {
 				// TODO:something went wrong with saving the post, do something here
 				return;
 			}
+			$sql = "INSERT INTO post_last_updated (post_id, last_updated) VALUES (" . $postId . ", NOW())";
+			$database->write($sql);
+			
 			$sql = "INSERT INTO post_topic_associations (post_id, topic_id) VALUES (" . $postId . "," . $topicId . ")";
 			$database->write($sql);
 			

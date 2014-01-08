@@ -10,6 +10,8 @@ class SubmitEditPostController implements IController {
 			$topicId = $form->getCleanDefaulted('t', 0); 
 			$postContent = $form->postCleanDefaulted('postContent', '');
 			$userInputScrubber = new UserInputScrubber();
+			
+			//TODO: editing a post breaks special characters
 			$postContent = $userInputScrubber->scrubString($postContent);
 			$sql = sprintf("UPDATE posts SET content = '%s' WHERE post_id = '%s' AND poster_user_id = '%s'",
 				$postContent,
@@ -18,6 +20,9 @@ class SubmitEditPostController implements IController {
 			);
 			$database = new Database();
 			$database->query($sql);
+			
+			$sql = "INSERT INTO post_last_updated (post_id, last_updated) VALUES (" . $postId . ", NOW())";
+			$database->write($sql);
 			
 			$header = new Header();
 			$header->redirect("?a=post&id=" .$postId. "&t=" . $topicId);

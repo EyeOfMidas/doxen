@@ -18,6 +18,7 @@ class PostController implements IController {
 		$topicId = $form->getCleanDefaulted("t", 0);
 		
 		$currentPost = $postModel->getPost($postId);
+		$user->markPostViewed($postId);
 		
 		$defaultTopics = $topicModel->getUserTopics();
 		$currentTopic = $topicModel->getCurrentTopic($topicId);

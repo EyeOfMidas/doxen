@@ -25,6 +25,7 @@ class PostRenderer {
 			$posts = $this->database->query($sql);
 			
 			$posts = $this->addCommentCount($posts);
+			$posts = $this->addPostDifferent($posts, $userId);
 			
 			$postViewData = array(
 				"posts" => $posts
@@ -65,6 +66,19 @@ class PostRenderer {
 		return $posts;
 	}
 
+	private function addPostDifferent($posts, $userId) {
+		foreach ($posts as $index => $post) {
+			$sql = sprintf("SELECT 1 FROM post_last_updated plu JOIN user_post_viewed upv ON plu.post_id = upv.post_id WHERE plu.post_id = %s AND upv.user_id = %s AND plu.last_updated > upv.last_viewed", $post['post_id'], $userId);
+			$timeData = $this->database->query($sql);
+			$newContent = false;
+			if (count($timeData) > 0) {
+				$newContent = true;
+			}
+			$posts[$index]['new_content'] = $newContent;
+		}
+		return $posts;
+	}
+
 	public function getPostsInTopic($topicId, $page = 0) {
 		$view = new View();
 		$sql = sprintf("SELECT p.post_id, u.user_id, p.timestamp, p.name as post_name, p.url_name as post_url_name, p.content, t.topic_id, u.username, u.display_name as user_display_name, t.display_name as topic_display_name, t.url_name as topic_url_name
@@ -78,12 +92,19 @@ class PostRenderer {
 		$posts = $this->database->query($sql);
 		
 		$posts = $this->addCommentCount($posts);
+		$user = new User();
+		$user->populate();
+		$userId = $user->getId();
+		if ($userId) {
+			$posts = $this->addPostDifferent($posts, $userId);
+		}
 		
 		$postViewData = array(
 			"posts" => $posts
 		);
 		return $view->render("postView.inc", $postViewData);
 	}
+
 	public function getPostsByUser($userId, $page = 0) {
 		$view = new View();
 		$sql = sprintf("SELECT p.post_id, u.user_id, p.timestamp, p.name as post_name, p.url_name as post_url_name, p.content, u.username, u.display_name as user_display_name, t.topic_id, t.display_name as topic_display_name
@@ -97,6 +118,7 @@ class PostRenderer {
 		$posts = $this->database->query($sql);
 		
 		$posts = $this->addCommentCount($posts);
+		$post = $this->addPostDifferent($posts, $userId);
 		
 		$postViewData = array(
 			"posts" => $posts

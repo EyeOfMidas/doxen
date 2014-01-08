@@ -47,4 +47,18 @@ class User {
 	public function isTopicOwner($topicId) {
 		return isset($this->acl[$topicId]) && $this->acl[$topicId] >= 2;
 	}
+	
+	public function isLoggedIn() {
+		$session = new Session();
+		return $session->getValue("logged_in");
+	}
+	
+	public function markPostViewed($postId) {
+		if($this->isLoggedIn()) {
+		$sql = sprintf("INSERT INTO user_post_viewed (user_id, post_id) VALUES (%s, %s) ON DUPLICATE KEY UPDATE last_viewed = NOW()", 
+			$this->getId(), $postId);
+		$database = new Database();
+		$database->write($sql);
+		}
+	}
 }
