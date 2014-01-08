@@ -41,7 +41,6 @@ class SubmitNewCommentController implements IController {
 			
 			$parentCommentId = $this->userInputScrubber->scrubString($parentCommentId);
 			
-			// TODO insert comment
 			$sql = sprintf("INSERT INTO comments (content, timestamp) 
 				VALUES ('%s', NOW())", $commentBody);
 			$commentId = $this->database->write($sql);
@@ -61,6 +60,9 @@ class SubmitNewCommentController implements IController {
 			
 			$sql = sprintf("INSERT INTO comment_post_associations (comment_id, post_id)
 				VALUES ('%s', '%s')", $commentId, $currentPostId);
+			$this->database->write($sql);
+			
+			$sql = "INSERT INTO post_last_updated (post_id, last_updated) VALUES (" . $currentPostId . ", NOW())";
 			$this->database->write($sql);
 			
 			$this->header->redirect("/?a=post&id=" . $currentPostId . "&t=" . $currentTopicId);
