@@ -2,9 +2,6 @@
 class CommentModel {
 	public function getComment($commentId) {
 		$commentData = array();
-		//TODO: pull out single comment data
-		//commenter_user_id (comment_user_associations)
-		//parent_post_id (comment_post_associations)
 		$sql = sprintf("SELECT c.comment_id, c.content, c.timestamp, c.url_name, c.is_edited, cpa.post_id as parent_post_id, cua.user_id as commenter_user_id
 				FROM comments c
 			JOIN comment_user_associations cua ON c.comment_id = cua.comment_id

@@ -26,10 +26,21 @@ class PostController implements IController {
 		$defaultTopics = $topicModel->getUserTopics();
 		$currentTopic = $topicModel->getCurrentTopic($topicId);
 		
+		$sql = sprintf("SELECT f.* FROM files f
+			JOIN post_file_associations pfa ON f.file_id = pfa.file_id
+			WHERE pfa.post_id = '%s'", $postId);
+		$database = new Database();
+		$fileData = $database->query($sql);
+		foreach($fileData as $index => $file) {
+			$fileComponents = explode('.', $file['name']);
+			$fileData[$index]['icon'] = $fileComponents[count($fileComponents)-1];
+		}
+		
 		
 		$postViewData = array(
 			"header" => $headRenderer->render(),
 			"postData" => $currentPost,
+			"fileData" => $fileData,
 			"commentView" => $commentsRenderer->getTopLevelComments($postId),
 			'topicData' => $currentTopic,
 			'topicAccess' => $permissionDecider->hasTopicAccess($topicId),

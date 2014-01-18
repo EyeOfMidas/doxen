@@ -5,6 +5,11 @@ $session = new Session();
 $userId = $session->getValue('logged_in');
 ?>
 <?=$header?>
+<style type="text/css">
+#postAttachments {
+	font-size: 10px;
+}
+</style>
 <div id="contentContainer">
 	<div id="content">
 		<a href="?a=post&id=<?=$postData['post_id']?>&t=<?=$postData['topic_id']?>"><?=$postData['post_name']?></a>
@@ -12,7 +17,16 @@ $userId = $session->getValue('logged_in');
 		<div id="byline">submitted <?=$humanReadableTime->formatString($postData['timestamp'])?> by <a href="/?a=user&id=<?=$postData['user_id']?>"><?=$postData['user_display_name']?></a>
 		in topic:<a href="?a=topic&id=<?=$postData['topic_id']?>"><?=$postData['topic_display_name']?></a>
 		</div>
-		<div id="postContents"><?=$postData['content']?></div>
+		<div id="postContents">
+		<?=$postData['content']?>
+		<div id="postAttachments">
+			<ul>
+			<?php foreach($fileData as $file) { ?>
+				<li><a href="/?a=files&id=<?=$file['file_id']?>" target="_blank"><img src="images/icons/<?=$file['icon']?>.png" /><?=$file['name']?></a></li>
+			<?php } ?>
+			</ul>
+		</div>
+		</div>
 			<?php if ($userId) { ?>
 			<div class="postActions">
 				<?php if($userId == $postData['user_id']) {?>
