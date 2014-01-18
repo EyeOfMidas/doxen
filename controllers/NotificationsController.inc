@@ -10,17 +10,22 @@ class NotificationsController implements IController {
 		$postRenderer = new PostRenderer();
 		$user->populate();
 		
-		// TODO: only logged in users can see this page
 		$userId = $user->getId();
+		$viewData = array(
+			"header" => $headRenderer->render()
+		);
+		
 		if ($userId) {
 			
-			$notificationsView = array(
-				"header" => $headRenderer->render(),
-				'user' => $user,
-				"postsView" => $postRenderer->getPostedTaggedIn($userId)
-			);
+			//TODO: go through all posts made, pull any that are updated since last viewed
+			//TODO: go through all comments made, pull any that are updated since last viewed
 			
-			return $view->render("notificationsView.inc", $notificationsView);
+			$viewData['user'] = $user;
+			$viewData['postsView'] = $postRenderer->getPostedTaggedIn($userId);
+			
+			return $view->render("notificationsView.inc", $viewData);
+		} else {
+			return $view->render("logInPromptView.inc", $viewData);
 		}
 	}
 }

@@ -21,17 +21,17 @@ class SubmitNewPostController implements IController {
 			$tags = $form->postCleanDefaulted("tags", "");
 			
 			if ($title == "") {
-				// TODO: title required, return error
+				// ERROR: title required, return error
 				return;
 			}
 			
 			if ($postContent == "") {
-				// TODO: post content required, return error
+				// ERROR: post content required, return error
 				return;
 			}
 			
 			if ($tags == "") {
-				// TODO: no tags defined
+				// ERROR: no tags defined
 				return;
 			}
 			
@@ -40,7 +40,7 @@ class SubmitNewPostController implements IController {
 			$tagsFound = $tagDecoder->getTagIds($tags);
 			
 			if (count($tagsFound) <= 0) {
-				// TODO: no tags defined, no where to post this
+				// ERROR: no tags defined, no where to post this
 				return;
 			}
 			$topicId = $tagsFound[0];
@@ -51,7 +51,7 @@ class SubmitNewPostController implements IController {
 			$postId = $database->write($sql);
 						
 			if ($postId == 0) {
-				// TODO:something went wrong with saving the post, do something here
+				// ERROR: something went wrong with saving the post, do something here
 				return;
 			}
 			$sql = "INSERT INTO post_last_updated (post_id, last_updated) VALUES (" . $postId . ", NOW())";

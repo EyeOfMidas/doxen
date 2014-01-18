@@ -11,7 +11,6 @@ class SubmitEditPostController implements IController {
 			$postContent = $form->postCleanDefaulted('postContent', '');
 			$userInputScrubber = new UserInputScrubber();
 			
-			//TODO: editing a post breaks special characters
 			$postContent = $userInputScrubber->scrubString($postContent);
 			$sql = sprintf("UPDATE posts SET content = '%s' WHERE post_id = '%s' AND poster_user_id = '%s'",
 				$postContent,

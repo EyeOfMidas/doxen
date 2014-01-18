@@ -30,14 +30,14 @@ class SubmitNewCommentController implements IController {
 			
 			$commentBody = $this->userInputScrubber->scrubString($commentBody);
 			if ($commentBody == "") {
-				// TODO: empty comment, what do
+				// ERROR: empty comment, what do
 				return;
 			}
 			
 			$commentBody = $this->stringUrlLinker->replaceUrlsWithLinks($commentBody);
 			
 			if (empty($currentTopicId)) {
-				// somehow they're posting in an undefined topic. No.
+				//ERROR: somehow they're posting in an undefined topic. No.
 				return;
 			}
 			
@@ -48,7 +48,7 @@ class SubmitNewCommentController implements IController {
 			$commentId = $this->database->write($sql);
 			
 			if ($commentId == 0) {
-				// TODO:something went wrong with saving the post, do something here
+				//ERROR: something went wrong with saving the post, do something here
 				return;
 			}
 			
@@ -74,6 +74,8 @@ class SubmitNewCommentController implements IController {
 			
 			$sql = "INSERT INTO post_last_updated (post_id, last_updated) VALUES (" . $currentPostId . ", NOW())";
 			$this->database->write($sql);
+			
+			//TODO: send notifications to user who submitted this comment/post (if it's a root-level comment)
 			
 			$this->header->redirect("/?a=post&id=" . $currentPostId . "&t=" . $currentTopicId);
 		} else {
