@@ -37,11 +37,16 @@ class NotificationScraper {
 		}
 		return $usersData;
 	}
+	
+	public function getUserTagDataFromString($text) {
+		$allTags = $this->getUserTags($text);
+		$userData = $this->getUserdataFromTags($allTags);
+		return $userData;
+	}
 
 	public function replaceNotificationsWithLinks($text) {
 		$modifiedText = $text;
-		$allTags = $this->getUserTags($text);
-		$userData = $this->getUserdataFromTags($allTags);
+		$userData = $this->getUserTagDataFromString($modifiedText);
 		foreach($userData as $userId => $userTag) {
 			$modifiedText = str_ireplace($userTag, "<a href=\"?a=user&id=".$userId."\">".$userTag."</a>", $modifiedText);
 		}

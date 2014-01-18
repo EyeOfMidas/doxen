@@ -11,6 +11,7 @@ class PostController implements IController {
 		$permissionDecider = new PermissionDecider();
 		$headRenderer = new HeadRenderer();
 		$user = new User();
+		$notificationScraper = new NotificationScraper();
 		
 		$user->populate();
 		
@@ -18,6 +19,8 @@ class PostController implements IController {
 		$topicId = $form->getCleanDefaulted("t", 0);
 		
 		$currentPost = $postModel->getPost($postId);
+		$taggedContent = $notificationScraper->replaceNotificationsWithLinks($currentPost['content']);
+		$currentPost['content'] = $taggedContent;
 		$user->markPostViewed($postId);
 		
 		$defaultTopics = $topicModel->getUserTopics();

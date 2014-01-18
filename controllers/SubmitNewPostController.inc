@@ -10,6 +10,7 @@ class SubmitNewPostController implements IController {
 		$tagDecoder = new TagDecoder();
 		$webWrapper = new WebWrapper();
 		$database = new Database();
+		$notificationScraper = new NotificationScraper();
 		
 		$user->populate();
 		$userId = $user->getId();
@@ -59,6 +60,13 @@ class SubmitNewPostController implements IController {
 			$sql = "INSERT INTO post_topic_associations (post_id, topic_id) VALUES (" . $postId . "," . $topicId . ")";
 			$database->write($sql);
 			
+			$userTagData = $notificationScraper->getUserTagDataFromString($postContent);
+			foreach($userTagData as $userId => $userTagString) {
+				$sql = sprintf("INSERT INTO user_tags (user_id) VALUES ('%s')", $userId);
+				$userTagId = $database->write($sql);
+				$sql = sprintf("INSERT INTO post_tags (post_id, tag_id) VALUES ('%s', '%s')", $postId, $userTagId);
+				$database->write($sql);
+			}			
 			$header->redirect("/?a=post&id=" . $postId . "&t=" . $topicId);
 		} else {
 			$header->redirect("/");
