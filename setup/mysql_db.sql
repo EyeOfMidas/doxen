@@ -3,13 +3,12 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 02, 2013 at 12:03 PM
--- Server version: 5.5.32
--- PHP Version: 5.3.10-1ubuntu3.8
+-- Generation Time: Jan 18, 2014 at 05:17 PM
+-- Server version: 5.5.34
+-- PHP Version: 5.3.10-1ubuntu3.9
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -62,6 +61,18 @@ CREATE TABLE IF NOT EXISTS `comment_comment_associations` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `comment_file_associations`
+--
+
+CREATE TABLE IF NOT EXISTS `comment_file_associations` (
+  `comment_id` int(11) NOT NULL,
+  `file_id` int(11) NOT NULL,
+  UNIQUE KEY `comment_id` (`comment_id`,`file_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comment_post_associations`
 --
 
@@ -98,6 +109,21 @@ CREATE TABLE IF NOT EXISTS `default_topics` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `files`
+--
+
+CREATE TABLE IF NOT EXISTS `files` (
+  `file_id` int(11) NOT NULL AUTO_INCREMENT,
+  `file_hash` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `size` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  PRIMARY KEY (`file_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `posts`
 --
 
@@ -110,6 +136,42 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `content` text NOT NULL,
   PRIMARY KEY (`post_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_file_associations`
+--
+
+CREATE TABLE IF NOT EXISTS `post_file_associations` (
+  `post_id` int(11) NOT NULL,
+  `file_id` int(11) NOT NULL,
+  UNIQUE KEY `post_id` (`post_id`,`file_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_last_updated`
+--
+
+CREATE TABLE IF NOT EXISTS `post_last_updated` (
+  `post_id` int(11) NOT NULL,
+  `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY `post_id` (`post_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_tags`
+--
+
+CREATE TABLE IF NOT EXISTS `post_tags` (
+  `post_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  UNIQUE KEY `post_id` (`post_id`,`tag_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -162,6 +224,18 @@ CREATE TABLE IF NOT EXISTS `topics` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `topic_topic_associations`
+--
+
+CREATE TABLE IF NOT EXISTS `topic_topic_associations` (
+  `topic_id` int(11) NOT NULL,
+  `subtopic_id` int(11) NOT NULL,
+  UNIQUE KEY `topic_id` (`topic_id`,`subtopic_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -204,6 +278,45 @@ INSERT INTO `users_auth` (`user_id`, `passwordhash`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_file_associations`
+--
+
+CREATE TABLE IF NOT EXISTS `user_file_associations` (
+  `user_id` int(11) NOT NULL,
+  `file_id` int(11) NOT NULL,
+  UNIQUE KEY `user_id` (`user_id`,`file_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_post_viewed`
+--
+
+CREATE TABLE IF NOT EXISTS `user_post_viewed` (
+  `user_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `last_viewed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY `user_id` (`user_id`,`post_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_tags`
+--
+
+CREATE TABLE IF NOT EXISTS `user_tags` (
+  `tag_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `isSeen` tinyint(1) NOT NULL,
+  `tagged_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`tag_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_topic_acl`
 --
 
@@ -224,18 +337,6 @@ CREATE TABLE IF NOT EXISTS `user_topic_subscription` (
   `user_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL,
   UNIQUE KEY `user_id` (`user_id`,`topic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `topic_topic_associations`
---
-
-CREATE TABLE IF NOT EXISTS `topic_topic_associations` (
-  `topic_id` int(11) NOT NULL,
-  `subtopic_id` int(11) NOT NULL,
-  UNIQUE KEY `topic_id` (`topic_id`,`subtopic_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
