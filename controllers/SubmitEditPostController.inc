@@ -23,7 +23,7 @@ class SubmitEditPostController implements IController {
 			$database->query($sql);
 			
 			$fileUploadHandler = new FileUploadHandler();
-			$fileUploadHandler->saveFileToPost($file, $postId);
+			$fileUploadHandler->saveFileToPost($file, $postId, $user->getId());
 			
 			$sql = "INSERT INTO post_last_updated (post_id, last_updated) VALUES (" . $postId . ", NOW())";
 			$database->write($sql);

@@ -57,7 +57,7 @@ class SubmitNewPostController implements IController {
 			}
 			
 			$fileUploadHandler = new FileUploadHandler();
-			$fileUploadHandler->saveFileToPost($file, $postId);
+			$fileUploadHandler->saveFileToPost($file, $postId, $userId);
 			
 			$sql = "INSERT INTO post_last_updated (post_id, last_updated) VALUES (" . $postId . ", NOW())";
 			$database->write($sql);

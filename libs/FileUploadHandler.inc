@@ -1,7 +1,7 @@
 <?php
 class FileUploadHandler {
 
-	public function saveFileToPost($file, $postId) {
+	public function saveFileToPost($file, $postId, $userId) {
 		if (! empty($file) && ! is_null($file)) {
 			$time = new Time();
 			$database = new Database();
@@ -18,6 +18,9 @@ class FileUploadHandler {
 				$fileId = $database->write($sql);
 				
 				$sql = sprintf("INSERT INTO post_file_associations (post_id, file_id) VALUES ('%s','%s')", $postId, $fileId);
+				$database->write($sql);
+				
+				$sql = sprintf("INSERT INTO user_file_associations (user_id, file_id) VALUES ('%s','%s')", $userId, $fileId);
 				$database->write($sql);
 			}
 		}
