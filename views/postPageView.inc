@@ -22,7 +22,7 @@ $userId = $session->getValue('logged_in');
 		<div id="postAttachments">
 			<ul>
 			<?php foreach($fileData as $file) { ?>
-				<li><a href="/?a=files&id=<?=$file['file_id']?>" target="_blank"><img src="images/icons/<?=$file['icon']?>.png" /><?=$file['name']?></a></li>
+				<li><a href="/?a=files&id=<?=$file['file_id']?>&force=1"><img src="images/icons/<?=$file['icon']?>.png" /></a> <a href="/?a=files&id=<?=$file['file_id']?>" target="_blank"><?=$file['name']?></a></li>
 			<?php } ?>
 			</ul>
 		</div>
