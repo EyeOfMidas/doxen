@@ -5,11 +5,6 @@ $session = new Session();
 $userId = $session->getValue('logged_in');
 ?>
 <?=$header?>
-<style type="text/css">
-#postAttachments {
-	font-size: 10px;
-}
-</style>
 <div id="contentContainer">
 	<div id="content">
 		<a href="?a=post&id=<?=$postData['post_id']?>&t=<?=$postData['topic_id']?>"><?=$postData['post_name']?></a>
@@ -19,13 +14,7 @@ $userId = $session->getValue('logged_in');
 		</div>
 		<div id="postContents">
 		<?=$postData['content']?>
-		<div id="postAttachments">
-			<ul>
-			<?php foreach($fileData as $file) { ?>
-				<li><a href="/?a=files&id=<?=$file['file_id']?>&force=1"><img src="images/icons/<?=$file['icon']?>.png" /></a> <a href="/?a=files&id=<?=$file['file_id']?>" target="_blank"><?=$file['name']?></a></li>
-			<?php } ?>
-			</ul>
-		</div>
+		<?php include 'attachmentsView.inc'; ?>
 		</div>
 			<?php if ($userId) { ?>
 			<div class="postActions">

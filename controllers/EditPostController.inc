@@ -22,9 +22,21 @@ class EditPostController implements IController {
 				$topicModel = new TopicModel();
 				$currentTopic = $topicModel->getCurrentTopic($topicId);
 				$permissionDecider = new PermissionDecider();
+				
+				$sql = sprintf("SELECT f.* FROM files f
+			JOIN post_file_associations pfa ON f.file_id = pfa.file_id
+			WHERE pfa.post_id = '%s'", $postId);
+				$database = new Database();
+				$fileData = $database->query($sql);
+				foreach($fileData as $index => $file) {
+					$fileComponents = explode('.', $file['name']);
+					$fileData[$index]['icon'] = $fileComponents[count($fileComponents)-1];
+				}
+				
 				$viewData = array(
 					'header' => $headRenderer->render(),
 					'postData' => $postData,
+					'fileData' => $fileData,
 					'topicId' => $topicId,
 					'topicData' => $currentTopic,
 					'topicAccess' => $permissionDecider->hasTopicAccess($topicId),

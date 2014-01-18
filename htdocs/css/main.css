@@ -180,6 +180,10 @@ textarea {
 	background-color: #679FD2;
 }
 
+#postAttachments {
+	font-size: 10px;
+}
+
 #sidebar {
 	float: right;
 	width: 300px;

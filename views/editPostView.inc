@@ -19,8 +19,11 @@ $humanReadableTime = new HumanReadableTime();
 			</div>
 			 */ ?>
 		</div>
-	<form method="POST" action="/?a=submiteditpost&id=<?=$postData['post_id']?>&t=<?=$topicId?>">
+	<form method="POST" action="/?a=submiteditpost&id=<?=$postData['post_id']?>&t=<?=$topicId?>"  enctype="multipart/form-data">
 		<textarea id="postContent" name="postContent"><?=$postData['content']?></textarea>
+		<br />
+		<?php include 'attachmentsView.inc'; ?>
+		<label for="attachment1">Upload Attachment:</label><input type="file" name="attachment1" id="attachment1" />
 		<br />
 		<input type="submit" value="Save Changes" />
 	</form>

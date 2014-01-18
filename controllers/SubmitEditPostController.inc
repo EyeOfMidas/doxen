@@ -9,6 +9,8 @@ class SubmitEditPostController implements IController {
 			$postId = $form->getCleanDefaulted('id', 0);
 			$topicId = $form->getCleanDefaulted('t', 0); 
 			$postContent = $form->postCleanDefaulted('postContent', '');
+			$file = $form->file("attachment1");
+			
 			$userInputScrubber = new UserInputScrubber();
 			
 			$postContent = $userInputScrubber->scrubString($postContent);
@@ -19,6 +21,9 @@ class SubmitEditPostController implements IController {
 			);
 			$database = new Database();
 			$database->query($sql);
+			
+			$fileUploadHandler = new FileUploadHandler();
+			$fileUploadHandler->saveFileToPost($file, $postId);
 			
 			$sql = "INSERT INTO post_last_updated (post_id, last_updated) VALUES (" . $postId . ", NOW())";
 			$database->write($sql);
