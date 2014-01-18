@@ -1,10 +1,12 @@
 <?php
 $humanReadableTime = new HumanReadableTime();
 foreach ($comments as $commentData) {
+	$fileData = $commentData['fileData'];
 	?>
 <div class="comment" id="comment<?=$commentData['comment_id']?>">
 	<div class="commentByline"><?=$commentData['display_name']?> - <?=$humanReadableTime->formatString($commentData['timestamp'])?><?=$commentData['is_edited'] ? '*' : ''?></div>
 	<p class="contents"><?=$commentData['content']?></p>
+	<?php include "attachmentsView.inc"?>
 	<div class="editWindow" style="display:none;">
 	<?php include "editCommentView.inc"; ?>
 	</div>

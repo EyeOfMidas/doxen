@@ -30,7 +30,18 @@ class CommentsRenderer {
 			$countData = $this->database->query($sql);
 			$comments[$index]['replies'] = $countData[0]['replies'];
 			$comments[$index]['content'] = $notificationScraper->replaceNotificationsWithLinks($commentData['content']);
+			$sql = sprintf("SELECT * FROM files f
+			JOIN comment_file_associations cfa ON f.file_id = cfa.file_id
+			WHERE cfa.comment_id = '%s'",$commentData['comment_id']);
+			$fileData = $this->database->query($sql);
+			foreach($fileData as $fileindex => $file) {
+				$fileComponents = explode('.', $file['name']);
+				$fileData[$fileindex]['icon'] = $fileComponents[count($fileComponents)-1];
+			}
+			$comments[$index]['fileData'] = $fileData;
 		}
+		
+		
 		
 		$view = new View();
 		$viewData = array(
@@ -66,6 +77,15 @@ class CommentsRenderer {
 			$countData = $this->database->query($sql);
 			$comments[$index]['replies'] = $countData[0]['replies'];
 			$comments[$index]['content'] = $notificationScraper->replaceNotificationsWithLinks($commentData['content']);
+			$sql = sprintf("SELECT * FROM files f
+			JOIN comment_file_associations cfa ON f.file_id = cfa.file_id
+			WHERE cfa.comment_id = '%s'",$commentData['comment_id']);
+			$fileData = $this->database->query($sql);
+			foreach($fileData as $fileindex => $file) {
+				$fileComponents = explode('.', $file['name']);
+				$fileData[$fileindex]['icon'] = $fileComponents[count($fileComponents)-1];
+			}
+			$comments[$index]['fileData'] = $fileData;
 		}
 		
 		$view = new View();

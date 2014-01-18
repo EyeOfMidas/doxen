@@ -1,3 +1,4 @@
+<?php if (!empty($fileData) && !is_null($fileData)) { ?>
 <div id="postAttachments">
 <ul>
 	<?php foreach($fileData as $file) { ?>
@@ -5,3 +6,4 @@
 	<?php } ?>
 </ul>
 </div>
+<? } ?>

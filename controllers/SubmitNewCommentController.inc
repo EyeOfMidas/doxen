@@ -27,6 +27,7 @@ class SubmitNewCommentController implements IController {
 			$currentPostId = $this->form->getCleanDefaulted('id', 0);
 			$currentTopicId = $this->form->getCleanDefaulted('t', 0);
 			$parentCommentId = $this->form->postCleanDefaulted('parentComment', 0);
+			$file = $this->form->file('attachment1');
 			
 			$commentBody = $this->userInputScrubber->scrubString($commentBody);
 			if ($commentBody == "") {
@@ -51,6 +52,9 @@ class SubmitNewCommentController implements IController {
 				//ERROR: something went wrong with saving the post, do something here
 				return;
 			}
+			
+			$fileUploadHandler = new FileUploadHandler();
+			$fileUploadHandler->saveFileToComment($file, $commentId, $userId);
 			
 			$sql = sprintf("INSERT INTO comment_comment_associations (comment_id, parent_comment_id)
 				VALUES ('%s', '%s')", $commentId, $parentCommentId);
