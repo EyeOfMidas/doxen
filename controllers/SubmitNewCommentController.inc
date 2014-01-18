@@ -6,6 +6,7 @@ class SubmitNewCommentController implements IController {
 	private $stringURLLinker;
 	private $database;
 	private $header;
+	private $notificationScraper;
 
 	public function __construct() {
 		$this->user = new User();
@@ -14,6 +15,7 @@ class SubmitNewCommentController implements IController {
 		$this->stringUrlLinker = new StringURLLinker();
 		$this->database = new Database();
 		$this->header = new Header();
+		$this->notificationScraper = new NotificationScraper();
 	}
 
 	public function execute() {
@@ -61,6 +63,14 @@ class SubmitNewCommentController implements IController {
 			$sql = sprintf("INSERT INTO comment_post_associations (comment_id, post_id)
 				VALUES ('%s', '%s')", $commentId, $currentPostId);
 			$this->database->write($sql);
+			
+			$userTagData = $this->notificationScraper->getUserTagDataFromString($commentBody);
+			foreach ($userTagData as $userId => $userTagString) {
+				$sql = sprintf("INSERT INTO user_tags (user_id) VALUES ('%s')", $userId);
+				$userTagId = $this->database->write($sql);
+				$sql = sprintf("INSERT INTO post_tags (post_id, tag_id) VALUES ('%s', '%s')", $currentPostId, $userTagId);
+				$this->database->write($sql);
+			}
 			
 			$sql = "INSERT INTO post_last_updated (post_id, last_updated) VALUES (" . $currentPostId . ", NOW())";
 			$this->database->write($sql);

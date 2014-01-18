@@ -9,6 +9,7 @@ class CommentsRenderer {
 
 	public function getComments($postId, $parentCommentId, $page = 0) {
 		$user = new User();
+		$notificationScraper = new NotificationScraper();
 		$user->populate();
 		$userId = $user->getId();
 		
@@ -24,11 +25,11 @@ class CommentsRenderer {
 			ORDER BY timestamp DESC LIMIT %s, %s", $parentCommentId, $postId, $page * CommentsRenderer::PAGE_SIZE, CommentsRenderer::PAGE_SIZE);
 		
 		$comments = $this->database->query($sql);
-		
 		foreach ($comments as $index => $commentData) {
 			$sql = sprintf("SELECT count(*) as replies FROM comment_comment_associations WHERE parent_comment_id = '%s'", $commentData['comment_id']);
 			$countData = $this->database->query($sql);
 			$comments[$index]['replies'] = $countData[0]['replies'];
+			$comments[$index]['content'] = $notificationScraper->replaceNotificationsWithLinks($commentData['content']);
 		}
 		
 		$view = new View();
@@ -44,6 +45,7 @@ class CommentsRenderer {
 
 	public function getReplies($parentCommentId, $page = 0) {
 		$user = new User();
+		$notificationScraper = new NotificationScraper();
 		$user->populate();
 		$userId = $user->getId();
 		
@@ -63,6 +65,7 @@ class CommentsRenderer {
 			$sql = sprintf("SELECT count(*) as replies FROM comment_comment_associations WHERE parent_comment_id = '%s'", $commentData['comment_id']);
 			$countData = $this->database->query($sql);
 			$comments[$index]['replies'] = $countData[0]['replies'];
+			$comments[$index]['content'] = $notificationScraper->replaceNotificationsWithLinks($commentData['content']);
 		}
 		
 		$view = new View();

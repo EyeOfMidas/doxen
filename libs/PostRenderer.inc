@@ -136,7 +136,7 @@ class PostRenderer {
 			JOIN users u ON ut.user_id = u.user_id
 			JOIN topics t on t.topic_id = a.topic_id
 			WHERE ut.user_id = '%s'
-			ORDER BY timestamp DESC LIMIT %s, %s", $userId, $page * PostRenderer::PAGE_SIZE, PostRenderer::PAGE_SIZE);
+			ORDER BY ut.tagged_on DESC LIMIT %s, %s", $userId, $page * PostRenderer::PAGE_SIZE, PostRenderer::PAGE_SIZE);
 		
 		$posts = $this->database->query($sql);
 		
@@ -147,15 +147,5 @@ class PostRenderer {
 			"posts" => $posts
 		);
 		return $view->render("postView.inc", $postViewData);
-		/*
-		$sql = sprintf("SELECT post_id FROM user_tags ut JOIN
-					post_tags pt ON ut.tag_id = pt.tag_id WHERE user_id = '%s';	", $userId);
-		$database = new Database();
-		$taggedPostIds = $database->query($sql);
-		$postModel = new PostModel();
-		$taggedPosts = array();
-		foreach ($taggedPostIds as $postData) {
-			$taggedPosts[] = $postModel->getPost($postData['post_id']);
-		}*/
 	}
 }
