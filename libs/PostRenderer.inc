@@ -125,4 +125,37 @@ class PostRenderer {
 		);
 		return $view->render("postView.inc", $postViewData);
 	}
+	
+	public function getPostedTaggedIn($userId, $page = 0) {
+		$view = new View();
+		$sql = sprintf("SELECT p.post_id, u.user_id, p.timestamp, p.name as post_name, p.url_name as post_url_name, p.content, u.username, u.display_name as user_display_name, t.topic_id, t.display_name as topic_display_name
+			FROM posts p
+			JOIN post_topic_associations a ON p.post_id = a.post_id
+			JOIN post_tags pt ON pt.post_id = p.post_id
+			JOIN user_tags ut ON ut.tag_id = pt.tag_id
+			JOIN users u ON ut.user_id = u.user_id
+			JOIN topics t on t.topic_id = a.topic_id
+			WHERE ut.user_id = '%s'
+			ORDER BY timestamp DESC LIMIT %s, %s", $userId, $page * PostRenderer::PAGE_SIZE, PostRenderer::PAGE_SIZE);
+		
+		$posts = $this->database->query($sql);
+		
+		$posts = $this->addCommentCount($posts);
+		$post = $this->addPostDifferent($posts, $userId);
+		
+		$postViewData = array(
+			"posts" => $posts
+		);
+		return $view->render("postView.inc", $postViewData);
+		/*
+		$sql = sprintf("SELECT post_id FROM user_tags ut JOIN
+					post_tags pt ON ut.tag_id = pt.tag_id WHERE user_id = '%s';	", $userId);
+		$database = new Database();
+		$taggedPostIds = $database->query($sql);
+		$postModel = new PostModel();
+		$taggedPosts = array();
+		foreach ($taggedPostIds as $postData) {
+			$taggedPosts[] = $postModel->getPost($postData['post_id']);
+		}*/
+	}
 }
