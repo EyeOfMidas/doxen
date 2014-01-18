@@ -6,8 +6,7 @@ $user->populate();
 $userId = $user->getId();
 ?>
 <?=$header?>
-<div id="contentContainer">
-Here
+<div id="contentContainer" style="color:black;">
 </div>
 <script type="text/javascript">
 $(document).ready(function() {	
