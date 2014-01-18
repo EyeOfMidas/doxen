@@ -49,4 +49,12 @@ class Form {
 	public function postCleanDefaulted($index, $defaultValue) {
 		return $this->userInputScrubber->scrubString($this->postDefaulted($index, $defaultValue));
 	}
+	
+	public function file($index) {
+		$fileData = array();
+		if($_FILES[$index]['error'] <= 0) {
+			$fileData = $_FILES[$index];
+		}
+		return $fileData;
+	}
 }

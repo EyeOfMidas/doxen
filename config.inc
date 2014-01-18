@@ -14,11 +14,13 @@ define("MEMCACHED_PORT", "11211");
 define("SOURCE_PATH", "/home/midas/git/doxen_deploy/");
 define("DEPLOY_PATH", "/home/midas/public_html/doxen/");
 
+
 /* --------- Do not edit below this line --------- */
 define("ROOT", dirname(__FILE__));
 define("LIBROOT", ROOT . "/libs/");
 define("VIEWROOT", ROOT . "/views/");
 define("CONTROLLERROOT", ROOT . "/controllers/");
+define("UPLOAD_PATH", ROOT. "/uploads/");
 
 function doxen_autoload($class) {
 	$classfile = $class . ".inc";
