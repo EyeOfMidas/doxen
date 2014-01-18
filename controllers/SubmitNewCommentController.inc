@@ -75,7 +75,23 @@ class SubmitNewCommentController implements IController {
 			$sql = "INSERT INTO post_last_updated (post_id, last_updated) VALUES (" . $currentPostId . ", NOW())";
 			$this->database->write($sql);
 			
-			//TODO: send notifications to user who submitted this comment/post (if it's a root-level comment)
+			if($parentCommentId == 0) {
+				//send notification to the post author
+				$postModel = new PostModel();
+				$parentPostData = $postModel->getPost($currentPostId);
+				$sql = sprintf("INSERT INTO user_tags (user_id) VALUES ('%s')", $parentPostData['user_id']);
+				$notificationId = $this->database->write($sql);
+				$sql = sprintf("INSERT INTO post_tags (tag_id, post_id) VALUES ('%s', '%s')", $notificationId, $currentPostId);
+				$this->database->write($sql);
+			} else {
+				//send notification to the parent comment author
+				$commentModel = new CommentModel();
+				$parentCommentData = $commentModel->getComment($parentCommentId);
+				$sql = sprintf("INSERT INTO user_tags (user_id) VALUES ('%s')", $parentCommentData['commenter_user_id']);
+				$notificationId = $this->database->write($sql);
+				$sql = sprintf("INSERT INTO post_tags (tag_id, post_id) VALUES ('%s', '%s')", $notificationId, $currentPostId);
+				$this->database->write($sql);
+			}
 			
 			$this->header->redirect("/?a=post&id=" . $currentPostId . "&t=" . $currentTopicId);
 		} else {
