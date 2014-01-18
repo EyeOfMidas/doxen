@@ -14,6 +14,8 @@ class EditPostController implements IController {
 			$sql = sprintf("SELECT * FROM posts WHERE poster_user_id = '%s' AND post_id = '%s'", $userId, $postId);
 			$database = new Database();
 			$postData = $database->query($sql);
+			$postData = $postData[0];
+			$postData['content'] = htmlspecialchars_decode($postData['content']);
 			if (! empty($postData)) {
 				$headRenderer = new HeadRenderer();
 				
@@ -22,7 +24,7 @@ class EditPostController implements IController {
 				$permissionDecider = new PermissionDecider();
 				$viewData = array(
 					'header' => $headRenderer->render(),
-					'postData' => $postData[0],
+					'postData' => $postData,
 					'topicId' => $topicId,
 					'topicData' => $currentTopic,
 					'topicAccess' => $permissionDecider->hasTopicAccess($topicId),

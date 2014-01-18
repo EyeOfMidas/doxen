@@ -20,7 +20,7 @@ class PostController implements IController {
 		
 		$currentPost = $postModel->getPost($postId);
 		$taggedContent = $notificationScraper->replaceNotificationsWithLinks($currentPost['content']);
-		$currentPost['content'] = $taggedContent;
+		$currentPost['content'] = htmlspecialchars_decode($taggedContent);
 		$user->markPostViewed($postId);
 		
 		$defaultTopics = $topicModel->getUserTopics();
