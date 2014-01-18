@@ -42,7 +42,7 @@ class FileUploadHandler {
 				$sql = sprintf("INSERT INTO files (file_hash, name, size, type) VALUES ('%s','%s','%s','%s')", $fileHash, $file['name'], $file['size'], $file['type']);
 				$fileId = $database->write($sql);
 	
-				$sql = sprintf("INSERT INTO comment_file_associations (post_id, file_id) VALUES ('%s','%s')", $commentId, $fileId);
+				$sql = sprintf("INSERT INTO comment_file_associations (comment_id, file_id) VALUES ('%s','%s')", $commentId, $fileId);
 				$database->write($sql);
 	
 				$sql = sprintf("INSERT INTO user_file_associations (user_id, file_id) VALUES ('%s','%s')", $userId, $fileId);

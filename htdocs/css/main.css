@@ -25,6 +25,10 @@ textarea {
 	width: 400px;
 	height: 100px;
 }
+
+.postAttachments {
+	font-size: 10px;
+}
 .newPost {
 	color: orangered;
 	font-weight: bold;
@@ -178,10 +182,6 @@ textarea {
 #postContents {
 	padding: 20px;
 	background-color: #679FD2;
-}
-
-#postAttachments {
-	font-size: 10px;
 }
 
 #sidebar {

@@ -5,6 +5,7 @@ class SubmitEditCommentController implements IController {
 		$form = new Form();
 		$commentId = $form->getCleanDefaulted('id', 0);
 		$content = $form->postCleanDefaulted('commentBody', "");
+		$file = $form->file('attachment1');
 		if ($content == "") {
 			// attempt to delete?
 			return;
@@ -32,6 +33,9 @@ class SubmitEditCommentController implements IController {
 		if ($userId == $commentData['user_id']) {
 			$sql = sprintf("UPDATE comments SET content = '%s', is_edited = 1 WHERE comment_id = '%s'", $content, $commentId);
 			$database->query($sql);
+			
+			$fileUploadHandler = new FileUploadHandler();
+			$fileUploadHandler->saveFileToComment($file, $commentId, $userId);
 		}
 		$header = new Header();
 		$header->redirect("/?a=post&id=" . $commentData['post_id'] . "&t=" . $commentData['topic_id']);
