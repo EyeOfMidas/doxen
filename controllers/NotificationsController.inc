@@ -15,6 +15,7 @@ class NotificationsController implements IController {
 			"header" => $headRenderer->render()
 		);
 		
+		$page = $form->getCleanDefaulted('p', 0);
 		if ($userId) {
 			
 			//TODO: go through all posts made, pull any that are updated since last viewed
@@ -22,7 +23,9 @@ class NotificationsController implements IController {
 			
 			$viewData['user'] = $user;
 			$tagModel = new TagModel();
-			$unreadTags = $tagModel->getUnseenTagsForUser($userId);
+			$unreadTags = $tagModel->geAllTagsForUser($userId, $page);
+			$tagModel->markTagDataRead($unreadTags);
+			
 			$viewData['unreadTags'] = $unreadTags;
 			return $view->render("notificationsView.inc", $viewData);
 		} else {
