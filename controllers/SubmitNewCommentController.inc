@@ -85,7 +85,7 @@ class SubmitNewCommentController implements IController {
 				$parentPostData = $postModel->getPost($currentPostId);
 				$sql = sprintf("INSERT INTO user_tags (user_id) VALUES ('%s')", $parentPostData['user_id']);
 				$notificationId = $this->database->write($sql);
-				$sql = sprintf("INSERT INTO post_tags (tag_id, post_id) VALUES ('%s', '%s')", $notificationId, $currentPostId);
+				$sql = sprintf("INSERT INTO comment_tags (tag_id, comment_id) VALUES ('%s', '%s')", $notificationId, $commentId);
 				$this->database->write($sql);
 			} else {
 				//send notification to the parent comment author
@@ -93,7 +93,7 @@ class SubmitNewCommentController implements IController {
 				$parentCommentData = $commentModel->getComment($parentCommentId);
 				$sql = sprintf("INSERT INTO user_tags (user_id) VALUES ('%s')", $parentCommentData['commenter_user_id']);
 				$notificationId = $this->database->write($sql);
-				$sql = sprintf("INSERT INTO post_tags (tag_id, post_id) VALUES ('%s', '%s')", $notificationId, $currentPostId);
+				$sql = sprintf("INSERT INTO comment_tags (tag_id, comment_id) VALUES ('%s', '%s')", $notificationId, $commentId);
 				$this->database->write($sql);
 			}
 			
