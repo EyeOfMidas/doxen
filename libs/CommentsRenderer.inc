@@ -29,7 +29,8 @@ class CommentsRenderer {
 			$sql = sprintf("SELECT count(*) as replies FROM comment_comment_associations WHERE parent_comment_id = '%s'", $commentData['comment_id']);
 			$countData = $this->database->query($sql);
 			$comments[$index]['replies'] = $countData[0]['replies'];
-			$comments[$index]['content'] = $notificationScraper->replaceNotificationsWithLinks($commentData['content']);
+			$comments[$index]['content'] = htmlspecialchars_decode($commentData['content']);
+			$comments[$index]['content'] = $notificationScraper->replaceNotificationsWithLinks($comments[$index]['content']);
 			$sql = sprintf("SELECT * FROM files f
 			JOIN comment_file_associations cfa ON f.file_id = cfa.file_id
 			WHERE cfa.comment_id = '%s'",$commentData['comment_id']);
@@ -76,7 +77,8 @@ class CommentsRenderer {
 			$sql = sprintf("SELECT count(*) as replies FROM comment_comment_associations WHERE parent_comment_id = '%s'", $commentData['comment_id']);
 			$countData = $this->database->query($sql);
 			$comments[$index]['replies'] = $countData[0]['replies'];
-			$comments[$index]['content'] = $notificationScraper->replaceNotificationsWithLinks($commentData['content']);
+			$comments[$index]['content'] = htmlspecialchars_decode($commentData['content']);
+			$comments[$index]['content'] = $notificationScraper->replaceNotificationsWithLinks($comments[$index]['content']);
 			$sql = sprintf("SELECT * FROM files f
 			JOIN comment_file_associations cfa ON f.file_id = cfa.file_id
 			WHERE cfa.comment_id = '%s'",$commentData['comment_id']);
