@@ -26,6 +26,13 @@ textarea {
 	height: 100px;
 }
 
+a.newNotice:link, a.newNotice:visited {
+	color: #FF9500;
+}
+a.newNotice:hover {
+	color: #FFFFFF;
+}
+
 .postAttachments {
 	font-size: 10px;
 }

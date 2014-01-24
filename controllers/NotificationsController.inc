@@ -21,8 +21,9 @@ class NotificationsController implements IController {
 			//TODO: go through all comments made, pull any that are updated since last viewed
 			
 			$viewData['user'] = $user;
-			$viewData['postsView'] = $postRenderer->getPostedTaggedIn($userId);
-			
+			$tagModel = new TagModel();
+			$unreadTags = $tagModel->getUnseenTagsForUser($userId);
+			$viewData['unreadTags'] = $unreadTags;
 			return $view->render("notificationsView.inc", $viewData);
 		} else {
 			return $view->render("logInPromptView.inc", $viewData);

@@ -309,7 +309,7 @@ CREATE TABLE IF NOT EXISTS `user_post_viewed` (
 CREATE TABLE IF NOT EXISTS `user_tags` (
   `tag_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `isSeen` tinyint(1) NOT NULL,
+  `is_seen` tinyint(1) NOT NULL,
   `tagged_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`tag_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
