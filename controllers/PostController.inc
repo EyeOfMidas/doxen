@@ -17,6 +17,8 @@ class PostController implements IController {
 		
 		$postId = $form->getCleanDefaulted("id", 0);
 		$topicId = $form->getCleanDefaulted("t", 0);
+		$commentId = $form->getCleanDefaulted("cid", 0);
+		$page = $form->getCleanDefaulted("p", 0);
 		
 		$currentPost = $postModel->getPost($postId);
 		$taggedContent = $notificationScraper->replaceNotificationsWithLinks($currentPost['content']);
@@ -31,21 +33,19 @@ class PostController implements IController {
 			WHERE pfa.post_id = '%s'", $postId);
 		$database = new Database();
 		$fileData = $database->query($sql);
-		foreach($fileData as $index => $file) {
+		foreach ($fileData as $index => $file) {
 			$fileComponents = explode('.', $file['name']);
-			$fileData[$index]['icon'] = $fileComponents[count($fileComponents)-1];
+			$fileData[$index]['icon'] = $fileComponents[count($fileComponents) - 1];
 		}
 		
-		
-		$postViewData = array(
-			"header" => $headRenderer->render(),
-			"postData" => $currentPost,
-			"fileData" => $fileData,
-			"commentView" => $commentsRenderer->getTopLevelComments($postId),
-			'topicData' => $currentTopic,
-			'topicAccess' => $permissionDecider->hasTopicAccess($topicId),
-			'user' => $user
-		);
+		$postViewData = array();
+		$postViewData["header"] = $headRenderer->render();
+		$postViewData["postData"] = $currentPost;
+		$postViewData["fileData"] = $fileData;
+		$postViewData["commentView"] = $commentsRenderer->getComments($postId, $commentId, $page);
+		$postViewData['topicData'] = $currentTopic;
+		$postViewData['topicAccess'] = $permissionDecider->hasTopicAccess($topicId);
+		$postViewData['user'] = $user;
 		
 		return $view->render("postPageView.inc", $postViewData);
 	}
